@@ -1,25 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package kolonistenvancatan;
 
+import domein.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
+ * In this main class you can find all properties and operations for KVCSpelGUI.
  *
- * @author anne
+ * @organization: Fontys S31D
+ * @author Anne Toonen
+ * @date 24-03-2014
  */
 public class KVCSpelGUI extends Application {
     
+    //<editor-fold defaultstate="collapsed" desc="Declarations">
+
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Events">
+
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Oprarations">
+
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Scene Build">
+    public Group tegenspeler(Speler speler){
+        Group returner = new Group();
+        return returner;
+    }
+    
+    public Group Canvas(){
+        Group returner = new Group();
+        return returner;
+    }
+    
+    public Group ActieveGuiSpeler(Speler speler){
+        Group returner = new Group();
+        return returner;
+    }
+    
+    public Group Chat(){
+        Group returner = new Group();
+        return returner;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Start">
     @Override
     public void start(Stage primaryStage) {
         Button btn = new Button();
@@ -53,5 +87,7 @@ public class KVCSpelGUI extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
+    //</editor-fold>
     
 }
