@@ -43,12 +43,11 @@ public class Spel {
     public Spel(String naam) {
         this.naam = naam;
         this.spelers = new ArrayList<>();
-        
+
         //TODO
         //this.Ontwikkelingskaarten = addOntwikkelingskaarten();
         this.struikrover = new Struikrover();
         this.bord = new Bord();
-        
 
     }
     //</editor-fold>
@@ -60,10 +59,6 @@ public class Spel {
 
     public Iterator getSpelers() {
         return this.spelers.iterator();
-    }
-    
-    public void addSpeler(Speler speler){
-        spelers.add(speler);
     }
 
     public boolean afstandsRegel(Point2D plaats) {
@@ -179,16 +174,16 @@ public class Spel {
 
     public ArrayList<Color> struikroverVerzetten() {
         Tegel t = gui.setStruikrover();
-        //struikrover.setPlaats(t.getPlaats().getCenterPositie());
+        struikrover.setPlaats(t.getPlaats().getCenterPositie());
         Hexagon h = t.getPlaats();
-        Point p = struikrover.getPlaats();
+        Point2D p = struikrover.getPlaats();
         Point2D[] hoeken = h.getVertices();
         ArrayList<Vesting> vestingen = new ArrayList<>();
         Iterator<Speler> spelers = this.getSpelers();
         ArrayList<Color> aanliggendeSpelers = new ArrayList<>();
         while (spelers.hasNext()) {
             Speler s = spelers.next();
-            vestingen.addAll(s.getVestingen());
+            vestingen.addAll(s.getVestigingen());
         }
         for (Point2D hoek : hoeken) {
             for (Vesting v : vestingen) {
@@ -213,10 +208,72 @@ public class Spel {
     //</editor-fold>
 
     private Iterable<Point2D> controleerBeschikbaarheidVestiging(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Vesting> vestingen = activeSpeler.getVestigingen();
+        ArrayList<Straat> straten = activeSpeler.getStraten();
+        ArrayList<Point2D> driesprongen = bord.getDriesprongen();
+
+        ArrayList<Point2D> vrijePlekkenDorp = new ArrayList<Point2D>();
+        ArrayList<Point2D> vrijePlekkenStad = new ArrayList<Point2D>();
+        ArrayList<Point2D> vrijePlekken = new ArrayList<Point2D>();
+        if (b) {
+            //KRIJG ALLE VRIJE DRIESPRONGEN
+            for (Vesting v : vestingen) {
+                for (Point2D p : driesprongen) {
+                    if (v.getPlaats().equals(p.getX()) || v.getPlaats().equals(p.getY())) {
+                    } else {
+                        vrijePlekkenDorp.add(p);
+                    }
+                }
+            }
+            //KIJK OF JE OP EEN VAN DE VRIJE DRIESPRONGEN ZOU MOGEN BOUWEN
+            for (Point2D p2D : vrijePlekkenDorp) {
+                if (this.afstandsRegel(p2D)) {
+                } else {
+                    vrijePlekkenDorp.remove(p2D);
+                }
+            }
+            //KIJK OF JE AAN EEN EIGEN STRAAT KAN BOUWEN
+            for (Point2D point : vrijePlekkenDorp) {
+                for (Straat s : this.activeSpeler.getStraten()) {
+                    if (s.getPlaats()[0].equals(point) || s.getPlaats()[1].equals(point)) {
+                    } else {
+                        vrijePlekkenDorp.remove(point);
+                    }
+                }
+            }
+            vrijePlekken = vrijePlekkenDorp;
+        } else {
+            for (Vesting v : this.activeSpeler.getVestigingen()) {
+                if (!v.getIsStad()) {
+                    vrijePlekkenStad.add(v.getPlaats());
+                }
+            }
+            vrijePlekken = vrijePlekkenStad;
+        }
+        return vrijePlekken;
     }
 
     private ArrayList<Straat> controleerBeschikbaarheidStraat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Point2D[]> paden = bord.getPaden();
+        ArrayList<Straat> vrijePaden = new ArrayList<Straat>();
+        for (Speler speler : this.spelers) {
+            for (Point2D[] p : paden) {
+                for (Straat s : speler.getStraten()) {
+                    if (p.equals(s.getPlaats()[0]) && p.equals(s.getPlaats()[1])) {
+                    } else {
+                        vrijePaden.add(s);
+                    }
+                }
+                for (Straat str : vrijePaden) {
+                    for (Straat straat : this.activeSpeler.getStraten()) {
+                        if (str.equals(straat.getPlaats()[0]) || str.equals(straat.getPlaats()[1])) {
+                        } else {
+                            vrijePaden.remove(str);
+                        }
+                    }
+                }
+            }
+        }
+        return vrijePaden;
     }
 }

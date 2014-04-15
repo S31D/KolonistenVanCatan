@@ -253,7 +253,7 @@ public class KVCSpelGUI extends Application {
     public KVCSpelGUI(Spel spel, Speler speler){
         this.spel = spel;
         this.GUISpeler = speler;
-        start(stage);
+        start(new Stage());
     }
     
     @Override
