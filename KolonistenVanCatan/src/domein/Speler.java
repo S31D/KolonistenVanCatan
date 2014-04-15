@@ -127,7 +127,7 @@ public class Speler {
         Straten.add(s);
     }
     
-    public ArrayList<Vesting> getVestingen(){
+    public ArrayList<Vesting> getVestigingen(){
         return this.Vestigingen;
     }
     //</editor-fold>
