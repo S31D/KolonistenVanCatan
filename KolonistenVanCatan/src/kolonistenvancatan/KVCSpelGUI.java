@@ -7,7 +7,12 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +39,16 @@ public class KVCSpelGUI extends Application {
     //<editor-fold defaultstate="collapsed" desc="Scene Build">
     public Group tegenspeler(Speler speler){
         Group returner = new Group();
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(3);
+        gridPane.setVgap(3);
+        
+        Circle circle = new Circle(60);
+        Rectangle rectangle = new Rectangle();
+        Text text = new Text(speler.getNaam());
+             
+        
+        
         return returner;
     }
     
@@ -67,7 +82,7 @@ public class KVCSpelGUI extends Application {
         });
         
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        root.getChildren().add(tegenspeler(new Speler("Anne")));
         
         Scene scene = new Scene(root, 300, 250);
         

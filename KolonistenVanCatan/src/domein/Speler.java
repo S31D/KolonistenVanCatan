@@ -15,24 +15,25 @@ package domein;
  * @date            9-apr-2014 
  */
 public class Speler {
-
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-
+    private String naam;
+    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
-    public Speler(){
-
+    public Speler(String naam){
+        this.naam = naam;
     }
 
+    
     //</editor-fold>
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Events">
-
     //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="Oprarations">
-
-    //</editor-fold>
+    public String getNaam() {
+        return naam;
+    }
 
 }
