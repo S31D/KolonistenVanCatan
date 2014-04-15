@@ -38,17 +38,16 @@ public class Spel {
     /**
      *
      * @param naam
-     * @param spelers
      */
-    public Spel(String naam, ArrayList<Speler> spelers) {
+    public Spel(String naam){
         this.naam = naam;
-        this.spelers = spelers;
+        spelers = new ArrayList<>();
 
         //TODO
         //this.Ontwikkelingskaarten = addOntwikkelingskaarten();
         this.struikrover = new Struikrover();
         this.bord = new Bord();
-        gui = new KVCSpelGUI();
+       
         //
 
     }
@@ -61,6 +60,10 @@ public class Spel {
 
     public Iterator getSpelers() {
         return this.spelers.iterator();
+    }
+    
+    public void addSpelers(Speler speler){
+        spelers.add(speler);
     }
 
     public boolean afstandsRegel(Point2D plaats) {

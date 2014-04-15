@@ -246,12 +246,11 @@ public class KVCSpelGUI extends Application {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Start">
-    @Override
-    public void init(){
-        //Spel
+    public KVCSpelGUI(String spelnaam, Speler speler){
+        spel = new Spel(spelnaam);
     }
     
-    public void start(Stage stage, Spel spel, Speler speler){
+    public KVCSpelGUI(Spel spel, Speler speler){
         this.spel = spel;
         this.GUISpeler = speler;
         start(stage);
@@ -285,19 +284,7 @@ public class KVCSpelGUI extends Application {
         primaryStage.setTitle("Kolonisten Van Catan");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    /**
-     * The main() method is ignored in correctly deployed JavaFX application.
-     * main() serves only as fallback in case the application can not be
-     * launched through deployment artifacts, e.g., in IDEs with limited FX
-     * support. NetBeans ignores main().
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }   
+    }  
     //</editor-fold>
 
     public void setDorp(Vesting v) {
