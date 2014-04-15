@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import kolonistenvancatan.KVCSpelGUI;
 
 /**
@@ -159,28 +160,44 @@ public class Spel {
         int getal1 = (r.nextInt(6) + 1);
         int getal2 = (r.nextInt(6) + 1);
         gui.letOpErIsGedobbelt(getal1, getal2);
-        if((getal1 + getal2) == 7){
+        if ((getal1 + getal2) == 7) {
             kaartenAfgeven();
             struikroverVerzetten();
         }
-        for(Speler s : spelers){
+        for (Speler s : spelers) {
             s.grondstofInnen((getal1 + getal2));
         }
     }
-    
-    public void struikroverVerzetten(){
+
+    public ArrayList<Color> struikroverVerzetten() {
         Tegel t = gui.setStruikrover();
         struikrover.setPlaats(t.getPlaats().getCenterPositie());
         Hexagon h = t.getPlaats();
         Point p = struikrover.getPlaats();
-        ArrayList<Vertice> hoeken = h.getVertices();
-        
-        
+        Point2D[] hoeken = h.getVertices();
+        ArrayList<Vesting> vestingen = new ArrayList<>();
+        Iterator<Speler> spelers = this.getSpelers();
+        ArrayList<Color> aanliggendeSpelers = new ArrayList<>();
+        while (spelers.hasNext()) {
+            Speler s = spelers.next();
+            vestingen.addAll(s.getVestingen());
+        }
+        for (Point2D hoek : hoeken) {
+            for (Vesting v : vestingen) {
+                if (hoek.getX() > v.getPlaats().getX() - 2 && hoek.getX() < v.getPlaats().getX() + 2 && hoek.getY() > v.getPlaats().getY() - 2 && hoek.getY() < v.getPlaats().getX() + 2) {
+                    if (!aanliggendeSpelers.contains(v.getKleur())) {
+                        aanliggendeSpelers.add(v.getKleur());
+                    }
+                }
+            }
+        }
+
+        return aanliggendeSpelers;
     }
-    
-    public void kaartenAfgeven(){
-        for(Speler s : spelers){
-            if(s.moetGrondstoffenInleveren()){
+
+    public void kaartenAfgeven() {
+        for (Speler s : spelers) {
+            if (s.moetGrondstoffenInleveren()) {
                 gui.grondstoffenInleveren(s);
             }
         }
