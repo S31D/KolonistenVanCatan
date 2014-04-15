@@ -1,8 +1,7 @@
 package kolonistenvancatan;
 
-import domein.*;
-import domein.tegels.*;
-import java.awt.Point;
+import domein.Spel;
+import domein.Speler;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.application.Application;
@@ -17,7 +16,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -247,11 +245,13 @@ public class KVCSpelGUI extends Application {
     //<editor-fold defaultstate="collapsed" desc="Start">
     @Override
     public void init(){
-             
         //Spel
+    }
+    
+    public void start(Stage stage, Spel spel, Speler speler){
         this.spel = spel;
-        //this.GUISpeler = speler;
-     
+        this.GUISpeler = speler;
+        start(stage);
     }
     
     @Override
