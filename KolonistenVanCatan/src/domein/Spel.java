@@ -134,6 +134,7 @@ public class Spel {
             }
         }
         if (spelersRuilen.isEmpty()) {
+            return false;
         } else {
             Speler sp = gui.willenHandelen(spelersRuilen);
 
@@ -142,10 +143,11 @@ public class Spel {
 
             sp.setGrondstof(grondstofWillen[0], (grondstofWillen[1] * -1);
             sp.setGrondstof(grondstoffenGeven[0], grondstoffenGeven[1]);
+            return true;
         }
     }
 
-    public boolean HandelenBank(Speler speler, ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
+    public void HandelenBank(Speler speler, ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
         speler.setGrondstof(grondstofWillen[0], grondstofWillen[1]);
         speler.setGrondstof(grondstofGeven[0], (grondstofGeven[1] * -1);
     }
@@ -155,6 +157,9 @@ public class Spel {
         int getal1 = (r.nextInt(6) + 1);
         int getal2 = (r.nextInt(6) + 1);
         gui.letOpErIsGedobbelt(getal1, getal2);
+        for(Speler s : spelers){
+            s.innen((getal1 + getal2));
+        }
     }
     //</editor-fold>
 }
