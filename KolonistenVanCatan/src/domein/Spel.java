@@ -5,6 +5,8 @@
  */
 package domein;
 
+import domein.tegels.Tegel;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -73,7 +75,7 @@ public class Spel {
                 mogelijkePlaatsen.add(p);
 
                 Point2D dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
-                Vesting v = new Vesting(dorpPlek, speler.getKleur, false);
+                Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
                 speler.setDorp(v);
                 gui.setDorp(v);
 
@@ -110,7 +112,7 @@ public class Spel {
     public void straatBouwen(Speler speler) {
         if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
             ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
-            Straat s = gui.getStraat(straten, speler.getKleur);
+            Straat s = gui.getStraat(straten, speler.getKleur());
             speler.setStraat(s);
             gui.setStraat(s);
             speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
@@ -120,7 +122,7 @@ public class Spel {
 
     public void straatBouwenKaart(Speler speler) {
         ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
-        Straat s = gui.getStraat(straten, speler.getKleur);
+        Straat s = gui.getStraat(straten, speler.getKleur());
         speler.setStraat(s);
         gui.setStraat(s);
     }
@@ -157,8 +159,30 @@ public class Spel {
         int getal1 = (r.nextInt(6) + 1);
         int getal2 = (r.nextInt(6) + 1);
         gui.letOpErIsGedobbelt(getal1, getal2);
+        if((getal1 + getal2) == 7){
+            kaartenAfgeven();
+            struikroverVerzetten();
+        }
         for(Speler s : spelers){
-            s.innen((getal1 + getal2));
+            s.grondstofInnen((getal1 + getal2));
+        }
+    }
+    
+    public void struikroverVerzetten(){
+        Tegel t = gui.setStruikrover();
+        struikrover.setPlaats(t.getPlaats().getCenterPositie());
+        Hexagon h = t.getPlaats();
+        Point p = struikrover.getPlaats();
+        ArrayList<Vertice> hoeken = h.getVertices();
+        
+        
+    }
+    
+    public void kaartenAfgeven(){
+        for(Speler s : spelers){
+            if(s.moetGrondstoffenInleveren()){
+                gui.grondstoffenInleveren(s);
+            }
         }
     }
     //</editor-fold>
