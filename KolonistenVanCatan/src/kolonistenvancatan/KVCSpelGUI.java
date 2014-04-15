@@ -4,6 +4,7 @@ import domein.*;
 import domein.tegels.*;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -257,19 +258,16 @@ public class KVCSpelGUI extends Application {
         //Spelers
         ArrayList<Speler> tegenspelers = new ArrayList<>();
         
-        
-        for(int i =0; i< spel.getSpelers().size(); i++){
-            if(GUISpeler.getNaam() == spel.getSpelers.get(i).getNaam()){
-                
+        Iterator<Speler> it = spel.getSpelers();
+        while(it.hasNext()){
+            Speler sp = it.next();
+            if(!GUISpeler.getNaam().equals(sp.getNaam())){
+                tegenspelers.add(sp);
             }
-        }
-         
+        }  
         
-        
-        
-                
         BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(tegenspeler(new Speler("Anne")));
+        borderPane.setLeft(tegenspelers(new Speler("Anne")));
         borderPane.setCenter(Canvas());
         borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
         borderPane.setRight(tegenspeler(new Speler("Daan")));
