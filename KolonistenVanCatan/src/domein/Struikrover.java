@@ -1,6 +1,7 @@
 package domein;
 
 import java.awt.Point;
+import javafx.geometry.Point2D;
 
 /**
  * in this class you can find all properties and operations for Struikrover
@@ -11,7 +12,7 @@ public class Struikrover {
     
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     
-    private Point plaats;
+    private Point2D plaats;
     public Spel unnamed_Spel_;
     
     //</editor-fold>
@@ -26,11 +27,11 @@ public class Struikrover {
     
     //<editor-fold defaultstate="collapsed" desc="Operations">
     
-    public Point getPlaats() {
+    public Point2D getPlaats() {
         return this.plaats;
     }
     
-    public void setPlaats(Point Plaats) {
+    public void setPlaats(Point2D Plaats) {
         this.plaats = Plaats;
     }
     
