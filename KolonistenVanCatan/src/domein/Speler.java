@@ -126,6 +126,10 @@ public class Speler {
     public void setStraat(Straat s){
         Straten.add(s);
     }
+    
+    public ArrayList<Vesting> getVestingen(){
+        return this.Vestigingen;
+    }
     //</editor-fold>
 
     void grondstofInnen(int i) {

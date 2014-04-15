@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import kolonistenvancatan.KVCSpelGUI;
 
 /**
@@ -38,16 +39,17 @@ public class Spel {
     /**
      *
      * @param naam
+     * @param spelers
      */
-    public Spel(String naam){
+    public Spel(String naam, ArrayList<Speler> spelers) {
         this.naam = naam;
-        spelers = new ArrayList<>();
+        this.spelers = spelers;
 
         //TODO
         //this.Ontwikkelingskaarten = addOntwikkelingskaarten();
         this.struikrover = new Struikrover();
         this.bord = new Bord();
-       
+        gui = new KVCSpelGUI();
         //
 
     }
@@ -60,10 +62,6 @@ public class Spel {
 
     public Iterator getSpelers() {
         return this.spelers.iterator();
-    }
-    
-    public void addSpelers(Speler speler){
-        spelers.add(speler);
     }
 
     public boolean afstandsRegel(Point2D plaats) {
@@ -177,15 +175,30 @@ public class Spel {
         }
     }
 
-    public void struikroverVerzetten() {
-        /*
+    public ArrayList<Color> struikroverVerzetten() {
         Tegel t = gui.setStruikrover();
         struikrover.setPlaats(t.getPlaats().getCenterPositie());
         Hexagon h = t.getPlaats();
         Point p = struikrover.getPlaats();
-        ArrayList<Vertice> hoeken = h.getVertices();
-                */
+        Point2D[] hoeken = h.getVertices();
+        ArrayList<Vesting> vestingen = new ArrayList<>();
+        Iterator<Speler> spelers = this.getSpelers();
+        ArrayList<Color> aanliggendeSpelers = new ArrayList<>();
+        while (spelers.hasNext()) {
+            Speler s = spelers.next();
+            vestingen.addAll(s.getVestingen());
+        }
+        for (Point2D hoek : hoeken) {
+            for (Vesting v : vestingen) {
+                if (hoek.getX() > v.getPlaats().getX() - 2 && hoek.getX() < v.getPlaats().getX() + 2 && hoek.getY() > v.getPlaats().getY() - 2 && hoek.getY() < v.getPlaats().getX() + 2) {
+                    if (!aanliggendeSpelers.contains(v.getKleur())) {
+                        aanliggendeSpelers.add(v.getKleur());
+                    }
+                }
+            }
+        }
 
+        return aanliggendeSpelers;
     }
 
     public void kaartenAfgeven() {
