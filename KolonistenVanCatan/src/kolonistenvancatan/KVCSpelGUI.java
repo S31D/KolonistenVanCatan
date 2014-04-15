@@ -6,8 +6,6 @@ import domein.Straat;
 import domein.Vesting;
 import domein.tegels.Tegel;
 import java.util.ArrayList;
-import java.util.Iterator;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,7 +23,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -39,7 +36,7 @@ import javafx.stage.Stage;
  * @author Anne Toonen
  * @date 24-03-2014
  */
-public class KVCSpelGUI extends Application {
+public class KVCSpelGUI {
     
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //Spel
@@ -246,31 +243,10 @@ public class KVCSpelGUI extends Application {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Start">
-    @Override
-    public void init(){
-        //Spel
-    }
-    
     public void start(Stage stage, Spel spel, Speler speler){
         this.spel = spel;
         this.GUISpeler = speler;
-        start(stage);
-    }
-    
-    @Override
-    public void start(Stage primaryStage) {
-        //Spelers
-        ArrayList<Speler> tegenspelers = new ArrayList<>();
-        
-        Iterator<Speler> it = spel.getSpelers();
-        while(it.hasNext()){
-            Speler sp = it.next();
-            if(!GUISpeler.getNaam().equals(sp.getNaam())){
-                tegenspelers.add(sp);
-            }
-        }  
-        
-        BorderPane borderPane = new BorderPane();
+                BorderPane borderPane = new BorderPane();
         //borderPane.setLeft(tegenspelers());
         borderPane.setCenter(Canvas());
         //borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
@@ -282,22 +258,10 @@ public class KVCSpelGUI extends Application {
         
         Scene scene = new Scene(root, 300, 250);
         
-        primaryStage.setTitle("Kolonisten Van Catan");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setTitle("Kolonisten Van Catan");
+        stage.setScene(scene);
+        stage.show();
     }
-
-    /**
-     * The main() method is ignored in correctly deployed JavaFX application.
-     * main() serves only as fallback in case the application can not be
-     * launched through deployment artifacts, e.g., in IDEs with limited FX
-     * support. NetBeans ignores main().
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }   
     //</editor-fold>
 
     public void setDorp(Vesting v) {
