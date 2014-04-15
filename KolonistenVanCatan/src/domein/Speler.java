@@ -78,6 +78,16 @@ public class Speler {
         }
         return 0;
     }
+    
+    public boolean moetGrondstoffenInleveren() {
+        int aantal = 0;
+        for (Object[] o : aantallenVanGrondstoffen){
+            for (Object o2 : o){
+                aantal += (int)o[1];
+            }
+        }
+        return (aantal > 7);     
+    }
         
     public void setGrondstof(Grondstof grondstof, int aantal) {
         for (Object[] o : aantallenVanGrondstoffen) {

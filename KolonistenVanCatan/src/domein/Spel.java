@@ -73,7 +73,7 @@ public class Spel {
                 mogelijkePlaatsen.add(p);
 
                 Point2D dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
-                Vesting v = new Vesting(dorpPlek, speler.getKleur, false);
+                Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
                 speler.setDorp(v);
                 gui.setDorp(v);
 
@@ -95,7 +95,7 @@ public class Spel {
                 mogelijkeDorpen.add(p);
 
                 Point2D stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
-                Vesting v = new Vesting(stadPlek, speler.getKleur, false);
+                Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
                 speler.setStad(v);
                 gui.setStad(v);
 
@@ -110,7 +110,7 @@ public class Spel {
     public void straatBouwen(Speler speler) {
         if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
             ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
-            Straat s = gui.getStraat(straten, speler.getKleur);
+            Straat s = gui.getStraat(straten, speler.getKleur());
             speler.setStraat(s);
             gui.setStraat(s);
             speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
@@ -120,7 +120,7 @@ public class Spel {
 
     public void straatBouwenKaart(Speler speler) {
         ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
-        Straat s = gui.getStraat(straten, speler.getKleur);
+        Straat s = gui.getStraat(straten, speler.getKleur());
         speler.setStraat(s);
         gui.setStraat(s);
     }
