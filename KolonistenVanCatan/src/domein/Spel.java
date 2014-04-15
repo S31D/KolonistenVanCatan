@@ -52,7 +52,6 @@ public class Spel {
         gui = new KVCSpelGUI();
         //
 
-
     }
     //</editor-fold>
 
@@ -129,30 +128,37 @@ public class Spel {
     }
 
     public boolean Handelen(Speler speler, ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
-        ArrayList<Speler> spelersRuilen = new ArrayList<Speler>();
+        /*
+         ArrayList<Speler> spelersRuilen = new ArrayList<Speler>();
 
-        for (Speler s : spelers) {
-            if (gui.wilHandellen(grondstoffenWillen, grondstoffenGeven)) {
-                spelersRuilen.add(s);
-            }
-        }
-        if (spelersRuilen.isEmpty()) {
-            return false;
-        } else {
-            Speler sp = gui.willenHandelen(spelersRuilen);
+         for (Speler s : spelers) {
+         if (gui.wilHandellen(grondstoffenWillen, grondstoffenGeven)) {
+         spelersRuilen.add(s);
+         }
+         }
+         if (spelersRuilen.isEmpty()) {
+         return false;
+         } else {
+         Speler sp = gui.willenHandelen(spelersRuilen);
+            
+         speler.setGrondstof(grondstofWillen[0], grondstofWillen[1]);
+         speler.setGrondstof(grondstofGeven[0], (grondstofGeven[1] * -1));
 
-            speler.setGrondstof(grondstofWillen[0], grondstofWillen[1]);
-            speler.setGrondstof(grondstofGeven[0], (grondstofGeven[1] * -1);
-
-            sp.setGrondstof(grondstofWillen[0], (grondstofWillen[1] * -1);
-            sp.setGrondstof(grondstoffenGeven[0], grondstoffenGeven[1]);
-            return true;
-        }
+         sp.setGrondstof(grondstofWillen[0], (grondstofWillen[1] * -1));
+         sp.setGrondstof(grondstoffenGeven[0], grondstoffenGeven[1]);
+                    
+           
+         return true;
+         }
+         */
+        return true;
     }
 
     public void HandelenBank(Speler speler, ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
-        speler.setGrondstof(grondstofWillen[0], grondstofWillen[1]);
-        speler.setGrondstof(grondstofGeven[0], (grondstofGeven[1] * -1);
+        /*
+         speler.setGrondstof(grondstofWillen[0], grondstofWillen[1]);
+         speler.setGrondstof(grondstofGeven[0], (grondstofGeven[1] * -1);
+         */
     }
 
     public void dobbelen() {
@@ -203,4 +209,12 @@ public class Spel {
         }
     }
     //</editor-fold>
+
+    private Iterable<Point2D> controleerBeschikbaarheidVestiging(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private ArrayList<Straat> controleerBeschikbaarheidStraat() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

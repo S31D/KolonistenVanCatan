@@ -2,7 +2,11 @@ package kolonistenvancatan;
 
 import domein.Spel;
 import domein.Speler;
+import domein.Straat;
+import domein.Vesting;
+import domein.tegels.Tegel;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +24,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -200,7 +206,7 @@ public class KVCSpelGUI extends Application {
         okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                GUISpeler = new Speler(tfGUISpeler.getText());
+                GUISpeler = new Speler(tfGUISpeler.getText(), Color.BLUE);
                 myDialog.close();
             }
         });
@@ -256,22 +262,19 @@ public class KVCSpelGUI extends Application {
         //Spelers
         ArrayList<Speler> tegenspelers = new ArrayList<>();
         
-        
-        for(int i =0; i< spel.getSpelers().size(); i++){
-            if(GUISpeler.getNaam() == spel.getSpelers.get(i).getNaam()){
-                
+        Iterator<Speler> it = spel.getSpelers();
+        while(it.hasNext()){
+            Speler sp = it.next();
+            if(!GUISpeler.getNaam().equals(sp.getNaam())){
+                tegenspelers.add(sp);
             }
-        }
-         
+        }  
         
-        
-        
-                
         BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(tegenspeler(new Speler("Anne")));
+        //borderPane.setLeft(tegenspelers());
         borderPane.setCenter(Canvas());
-        borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
-        borderPane.setRight(tegenspeler(new Speler("Daan")));
+        //borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
+        //borderPane.setRight(tegenspeler(new Speler("Daan")));
         
         StackPane root = new StackPane();
         root.getChildren().add(borderPane);
@@ -296,6 +299,44 @@ public class KVCSpelGUI extends Application {
         launch(args);
     }   
     //</editor-fold>
+
+    public void setDorp(Vesting v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setStad(Vesting v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Straat getStraat(ArrayList<Straat> straten, Color kleur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setStraat(Straat s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean wilHandellen(ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Speler willenHandelen(ArrayList<Speler> spelersRuilen) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void letOpErIsGedobbelt(int al1, int al2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Tegel setStruikrover() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void grondstoffenInleveren(Speler s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
     
     
