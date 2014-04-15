@@ -7,6 +7,7 @@ package domein;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import javafx.geometry.Point2D;
 import kolonistenvancatan.KVCSpelGUI;
 
@@ -147,6 +148,13 @@ public class Spel {
     public boolean HandelenBank(Speler speler, ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
         speler.setGrondstof(grondstofWillen[0], grondstofWillen[1]);
         speler.setGrondstof(grondstofGeven[0], (grondstofGeven[1] * -1);
+    }
+
+    public void dobbelen() {
+        Random r = new Random();
+        int getal1 = (r.nextInt(6) + 1);
+        int getal2 = (r.nextInt(6) + 1);
+        gui.letOpErIsGedobbelt(getal1, getal2);
     }
     //</editor-fold>
 }
