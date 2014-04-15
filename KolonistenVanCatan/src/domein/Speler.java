@@ -6,6 +6,9 @@
 
 package domein;
 
+import java.util.ArrayList;
+import javafx.scene.paint.Color;
+
 /**
  * In this class you can find all properties and operations for Speler. 
  * //CHECK
@@ -16,24 +19,102 @@ package domein;
  */
 public class Speler {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private String naam;
-    
+    private final String gebruikersnaam;
+    private ArrayList<Object[]> aantallenVanGrondstoffen;
+    private int overwinningspunten;
+    private final Color kleur;
+    private ArrayList<Vesting> Vestigingen;
+    private ArrayList<Straat> Straten;
+    private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
+    private int gespeeldeRidderkaarten;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
-    public Speler(String naam){
-        this.naam = naam;
+    public Speler(String naam, Color kleur){
+        this.gebruikersnaam = naam;
+        this.kleur = kleur;
+        this.Vestigingen = new ArrayList<>();
     }
 
     
     //</editor-fold>
-
-    //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Events">
-    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Oprarations">
     public String getNaam() {
-        return naam;
+        return gebruikersnaam;
     }
-
+    
+    public Color getKleur(){
+        return kleur;
+    }
+    
+    public int getOverwinningspunten() {
+        return this.overwinningspunten;
+    }
+    
+    public void setOverwinningspunten(int overwinningspunten) {
+        this.overwinningspunten = overwinningspunten;
+    }
+    
+    public boolean voorraadToereikend(Grondstof grondstof, int aantal) {
+        boolean toereikend = false;
+        for (Object[] o : aantallenVanGrondstoffen) {
+            Grondstof gs = (Grondstof) o[0];
+            int i = (int) o[1];
+            if (gs == grondstof && i >= aantal) {
+                
+                return true;
+            }
+        }
+        return toereikend;
+    }
+    
+    public int aantalGrondstoffen(Grondstof grondstof) {
+        for (Object[] o : aantallenVanGrondstoffen)
+        {
+            if(o[0] == grondstof){
+                return  (int) o[1];
+            }
+        }
+        return 0;
+    }
+        
+    public void setGrondstof(Grondstof grondstof, int aantal) {
+        for (Object[] o : aantallenVanGrondstoffen) {
+            if ((Grondstof) o[0] == grondstof) {
+                if (aantal + (int) o[1] >= 0) {
+                    o[1] = aantal + (int) o[1];
+                }
+            }
+        }
+    }
+    
+    public void setDorp(Vesting v){
+        int count = 0;
+        for(Vesting vesting : Vestigingen){
+            if(vesting.getIsStad() == false){
+                count = count +1;
+            }
+        }
+        if(count <=4){
+           Vestigingen.add(v); 
+        }
+    }
+    
+    public void setStad(Vesting v){
+        int count = 0;
+        for(Vesting vesting : Vestigingen){
+            if(vesting.getIsStad() == true){
+                count = count +1;
+            }
+        }
+        if(count <=3){
+           Vestigingen.add(v); 
+        }
+    }
+    
+    public void setStraat(Straat s){
+        Straten.add(s);
+    }
+    //</editor-fold>
 }
