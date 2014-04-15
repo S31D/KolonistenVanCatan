@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package domein;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * In this class you can find all properties and operations for Vesting
+ * 
  * @author Daan
  */
 public class Vesting {
@@ -18,7 +13,7 @@ public class Vesting {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     
     private Point2D plaats;
-    private Color kleur;
+    private final Color kleur;
     private boolean isStad;
     public Speler speler;
     
@@ -26,9 +21,10 @@ public class Vesting {
     
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     
-    public Vesting(Point2D plaats, Color kleur) {
+    public Vesting(Point2D plaats, Color kleur, boolean isStad) {
         this.plaats = plaats;
         this.kleur = kleur;
+        this.isStad = isStad;
     }
     
     //</editor-fold>
