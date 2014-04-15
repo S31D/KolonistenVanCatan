@@ -43,6 +43,7 @@ public class KVCSpelGUI extends Application {
     private Spel spel;
     private Speler GUISpeler;
     
+    
     //Canvas
     private Canvas catan;
     private GraphicsContext gc;
@@ -191,6 +192,7 @@ public class KVCSpelGUI extends Application {
     }
     
     //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Popup Build">
     public void popupGUISpeler(){
         final Stage myDialog = new Stage();
@@ -242,10 +244,25 @@ public class KVCSpelGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Start">
     @Override
-    public void start(Stage primaryStage) {
+    public void init(){
+             
         //Spel
-        spel = spelkeuze();
+        this.spel = spel;
+        this.GUISpeler = speler;
+     
+    }
+    
+    @Override
+    public void start(Stage primaryStage) {
         //Spelers
+        ArrayList<Speler> tegenspelers = new ArrayList<>();
+        
+        
+        for(int i =0; i< spel.getSpelers().size(); i++){
+            if(GUISpeler.getNaam() == spel.getSpelers.get(i).getNaam()){
+                
+            }
+        }
          
         
         
@@ -278,23 +295,7 @@ public class KVCSpelGUI extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-    
-    private Spel spelkeuze(){
-        popupGUISpeler();
-                
-        ArrayList<Speler> spelers = new ArrayList<>();
-        spelers.add(GUISpeler);
-        spelers.add(new Speler("Thomas"));
-        spelers.add(new Speler("Daan"));
-        spelers.add(new Speler("Giovanni"));
-        
-        Spel returner = new Spel();
-        return returner;
-        
-        
-    }
-    
+    }   
     //</editor-fold>
 
     
