@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -204,7 +205,7 @@ public class KVCSpelGUI extends Application {
         okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                GUISpeler = new Speler(tfGUISpeler.getText());
+                GUISpeler = new Speler(tfGUISpeler.getText(), Color.BLUE);
                 myDialog.close();
             }
         });
@@ -249,7 +250,7 @@ public class KVCSpelGUI extends Application {
              
         //Spel
         this.spel = spel;
-        this.GUISpeler = speler;
+        //this.GUISpeler = speler;
      
     }
     
@@ -267,10 +268,10 @@ public class KVCSpelGUI extends Application {
         }  
         
         BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(tegenspelers(new Speler("Anne")));
+        //borderPane.setLeft(tegenspelers());
         borderPane.setCenter(Canvas());
-        borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
-        borderPane.setRight(tegenspeler(new Speler("Daan")));
+        //borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
+        //borderPane.setRight(tegenspeler(new Speler("Daan")));
         
         StackPane root = new StackPane();
         root.getChildren().add(borderPane);
