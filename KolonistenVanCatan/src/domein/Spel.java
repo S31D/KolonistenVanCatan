@@ -6,9 +6,9 @@
 package domein;
 
 import domein.tegels.Tegel;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -23,7 +23,7 @@ public class Spel {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //nodig bij spel constructor
     private final String naam;
-    private final ArrayList<Speler> spelers;
+    private final List<Speler> spelers;
     //Speelstukken
     private Speler langsteHandelsroute;
     private Speler grootsteRiddermacht;
@@ -41,7 +41,7 @@ public class Spel {
      * @param naam
      * @param spelers
      */
-    public Spel(String naam, ArrayList<Speler> spelers) {
+    public Spel(String naam, List<Speler> spelers) {
         this.naam = naam;
         this.spelers = spelers;
 
