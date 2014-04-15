@@ -39,18 +39,16 @@ public class Spel {
     /**
      *
      * @param naam
-     * @param spelers
      */
-    public Spel(String naam, ArrayList<Speler> spelers) {
+    public Spel(String naam) {
         this.naam = naam;
-        this.spelers = spelers;
-
+        this.spelers = new ArrayList<>();
+        
         //TODO
         //this.Ontwikkelingskaarten = addOntwikkelingskaarten();
         this.struikrover = new Struikrover();
         this.bord = new Bord();
-        gui = new KVCSpelGUI();
-        //
+        
 
     }
     //</editor-fold>
@@ -62,6 +60,10 @@ public class Spel {
 
     public Iterator getSpelers() {
         return this.spelers.iterator();
+    }
+    
+    public void addSpeler(Speler speler){
+        spelers.add(speler);
     }
 
     public boolean afstandsRegel(Point2D plaats) {
@@ -177,7 +179,7 @@ public class Spel {
 
     public ArrayList<Color> struikroverVerzetten() {
         Tegel t = gui.setStruikrover();
-        struikrover.setPlaats(t.getPlaats().getCenterPositie());
+        //struikrover.setPlaats(t.getPlaats().getCenterPositie());
         Hexagon h = t.getPlaats();
         Point p = struikrover.getPlaats();
         Point2D[] hoeken = h.getVertices();
