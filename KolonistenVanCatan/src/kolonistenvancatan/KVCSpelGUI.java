@@ -2,6 +2,9 @@ package kolonistenvancatan;
 
 import domein.Spel;
 import domein.Speler;
+import domein.Straat;
+import domein.Vesting;
+import domein.tegels.Tegel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.application.Application;
@@ -296,6 +299,44 @@ public class KVCSpelGUI extends Application {
         launch(args);
     }   
     //</editor-fold>
+
+    public void setDorp(Vesting v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setStad(Vesting v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Straat getStraat(ArrayList<Straat> straten, Color kleur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setStraat(Straat s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean wilHandellen(ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Speler willenHandelen(ArrayList<Speler> spelersRuilen) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void letOpErIsGedobbelt(int al1, int al2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Tegel setStruikrover() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void grondstoffenInleveren(Speler s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
     
     

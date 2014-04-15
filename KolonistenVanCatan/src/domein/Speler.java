@@ -25,7 +25,7 @@ public class Speler {
     private final Color kleur;
     private ArrayList<Vesting> Vestigingen;
     private ArrayList<Straat> Straten;
-    private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
+    //private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
     private int gespeeldeRidderkaarten;
     //</editor-fold>
 
@@ -127,4 +127,8 @@ public class Speler {
         Straten.add(s);
     }
     //</editor-fold>
+
+    void grondstofInnen(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
