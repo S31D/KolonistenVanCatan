@@ -31,7 +31,7 @@ public class Spel {
     private final Bord bord;
     //GUI
     private Speler activeSpeler;
-    private KVCSpelGUI gui;
+    private final KVCSpelGUI gui;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
