@@ -97,7 +97,7 @@ public class Spel {
                 mogelijkeDorpen.add(p);
 
                 Point2D stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
-                Vesting v = new Vesting(stadPlek, speler.getKleur, false);
+                Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
                 speler.setStad(v);
                 gui.setStad(v);
 
