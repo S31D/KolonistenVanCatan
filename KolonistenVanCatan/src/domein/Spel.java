@@ -5,6 +5,7 @@
  */
 package domein;
 
+import domein.ontwikkelingskaarten.IOntwikkelingskaart;
 import domein.tegels.Tegel;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -327,5 +328,21 @@ public class Spel {
             }
         }
         return vrijePaden;
+    }
+    
+    public void ontwikkelingskaartInzetten() {
+        throw new UnsupportedOperationException();
+    }
+
+    public IOntwikkelingskaart ontwikkelingskaartKopen() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void getOntwikkelingskaart() {
+        throw new UnsupportedOperationException();
+    }    
+
+    private ArrayList<IOntwikkelingskaart> addOntwikkelingskaarten() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
