@@ -135,6 +135,10 @@ public class Speler {
         Straten.add(s);
     }
     
+    public ArrayList<Straat> getStraten(){
+        return Straten;
+    }
+    
     public ArrayList<Vesting> getVestigingen(){
         return this.Vestigingen;
     }
@@ -142,10 +146,5 @@ public class Speler {
     void grondstofInnen(int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public ArrayList<Straat> getStraten(){
-        return Straten;
-    }
-    
     //</editor-fold>
 }
