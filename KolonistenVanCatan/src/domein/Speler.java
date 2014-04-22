@@ -56,6 +56,14 @@ public class Speler {
         this.overwinningspunten = overwinningspunten;
     }
     
+    public int getGespeeldeRidderkaarten() {
+        return this.gespeeldeRidderkaarten;
+    }
+    
+    public void setGespeeldeRidderkaarten() {
+        this.gespeeldeRidderkaarten = gespeeldeRidderkaarten + 1;
+    }
+    
     public boolean voorraadToereikend(Grondstof grondstof, int aantal) {
         boolean toereikend = false;
         for (Object[] o : aantallenVanGrondstoffen) {
@@ -130,7 +138,6 @@ public class Speler {
     public ArrayList<Vesting> getVestigingen(){
         return this.Vestigingen;
     }
-    //</editor-fold>
 
     void grondstofInnen(int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -139,4 +146,6 @@ public class Speler {
     public ArrayList<Straat> getStraten(){
         return Straten;
     }
+    
+    //</editor-fold>
 }
