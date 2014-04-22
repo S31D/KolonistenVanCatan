@@ -24,6 +24,7 @@ public class Spel {
     //nodig bij spel constructor
     private final String naam;
     private final ArrayList<Speler> spelers;
+    Random r;
     //Speelstukken
     private Speler langsteHandelsroute;
     private Speler grootsteRiddermacht;
@@ -43,7 +44,7 @@ public class Spel {
     public Spel(String naam) {
         this.naam = naam;
         this.spelers = new ArrayList<>();
-
+        r = new Random();
         //TODO
         //this.Ontwikkelingskaarten = addOntwikkelingskaarten();
         this.struikrover = new Struikrover();
@@ -67,28 +68,67 @@ public class Spel {
 
     public void dorpBouwen(Speler speler) {
         ArrayList<Point2D> mogelijkePlaatsen = new ArrayList<Point2D>();
-        if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
-            for (Point2D p : controleerBeschikbaarheidVestiging(true)) {
-                mogelijkePlaatsen.add(p);
+        if (speler == this.activeSpeler) {
+            if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
+                for (Point2D p : controleerBeschikbaarheidVestiging(true)) {
+                    mogelijkePlaatsen.add(p);
 
-                Point2D dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
-                Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
-                speler.setDorp(v);
-                gui.setDorp(v);
+                    Point2D dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
+                    Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
+                    speler.setDorp(v);
+                    gui.setDorp(v);
 
-                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
-                speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.GRAAN) - 1);
-                speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
-                speler.setGrondstof(Grondstof.WOL, speler.aantalGrondstoffen(Grondstof.WOL) - 1);
+                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
+                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.GRAAN) - 1);
+                    speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
+                    speler.setGrondstof(Grondstof.WOL, speler.aantalGrondstoffen(Grondstof.WOL) - 1);
 
+                }
+            } else {
             }
         } else {
+            if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
+                for (Point2D p : controleerBeschikbaarheidVestiging(true)) {
+                    mogelijkePlaatsen.add(p);
+
+                    Point2D dorpPlek = mogelijkePlaatsen.get(r.nextInt(mogelijkePlaatsen.size()));
+                    Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
+                    speler.setDorp(v);
+                    gui.setDorp(v);
+
+                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
+                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.GRAAN) - 1);
+                    speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
+                    speler.setGrondstof(Grondstof.WOL, speler.aantalGrondstoffen(Grondstof.WOL) - 1);
+
+                }
+            } else {
+            }
+
         }
     }
 
     public void creëerStad(Speler speler) {
         ArrayList<Point2D> mogelijkeDorpen = new ArrayList<Point2D>();
+        if(speler instanceof Bot){
+                    if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
+            for (Point2D p : controleerBeschikbaarheidVestiging(false)) {
+                mogelijkeDorpen.add(p);
+
+                Point2D stadPlek = mogelijkeDorpen.get(r.nextInt(mogelijkeDorpen.size()));
+                Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
+                speler.setStad(v);
+                gui.setStad(v);
+
+                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.GRAAN) - 2);
+                speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.ERTS) - 3);
+            }
+        } else {
+        }
+        }else{
         if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
             for (Point2D p : controleerBeschikbaarheidVestiging(false)) {
                 mogelijkeDorpen.add(p);
@@ -105,15 +145,27 @@ public class Spel {
         } else {
         }
     }
-
+    }
+    
     public void straatBouwen(Speler speler) {
-        if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
-            ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
-            Straat s = gui.getStraat(straten, speler.getKleur());
-            speler.setStraat(s);
-            gui.setStraat(s);
-            speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
-            speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
+        if (speler instanceof Bot) {
+            if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
+                ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
+                Straat s = straten.get(r.nextInt(straten.size()));
+                speler.setStraat(s);
+                gui.setStraat(s);
+                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
+                speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
+            }
+        } else {
+            if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
+                ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
+                Straat s = gui.getStraat(straten, speler.getKleur());
+                speler.setStraat(s);
+                gui.setStraat(s);
+                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
+                speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
+            }
         }
     }
 
