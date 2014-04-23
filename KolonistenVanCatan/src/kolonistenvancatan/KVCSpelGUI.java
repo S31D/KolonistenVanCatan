@@ -1,28 +1,38 @@
 package kolonistenvancatan;
 
+import domein.Coordinate;
+import domein.Grondstof;
+import domein.Kleur;
 import domein.Spel;
 import domein.Speler;
 import domein.Straat;
 import domein.Vesting;
 import domein.tegels.Tegel;
+import java.awt.Image;
 import java.util.ArrayList;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -36,7 +46,7 @@ import javafx.stage.Stage;
  * @author Anne Toonen
  * @date 24-03-2014
  */
-public class KVCSpelGUI {
+public class KVCSpelGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //Spel
@@ -133,8 +143,8 @@ public class KVCSpelGUI {
 
     //</editor-fold>
     //Dorp bouwen
-    public Point2D keuzePlaatsDorp(ArrayList<Point2D> mogelijkheden) {
-        Point2D returner;
+    public Coordinate keuzePlaatsDorp(ArrayList<Coordinate> mogelijkheden) {
+        Coordinate returner;
         returner = mogelijkheden.get(0);
 
         return returner;
@@ -194,7 +204,7 @@ public class KVCSpelGUI {
         okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                GUISpeler = new Speler(tfGUISpeler.getText(), Color.BLUE);
+                GUISpeler = new Speler(tfGUISpeler.getText(), new Kleur(Color.BLUE));
                 myDialog.close();
             }
         });
@@ -264,7 +274,7 @@ public class KVCSpelGUI {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Straat getStraat(ArrayList<Straat> straten, Color kleur) {
+    public Straat getStraat(ArrayList<Straat> straten, Kleur kleur) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -292,4 +302,34 @@ public class KVCSpelGUI {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
+    /**
+     * The main() method is ignored in correctly deployed JavaFX 
+     * application. main() serves only as fallback in case the 
+     * application can not be launched through deployment artifacts,
+     * e.g., in IDEs with limited FX support. NetBeans ignores main().
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+       
+        primaryStage.setTitle("Kolonisten van catan");
+        Parent root = FXMLLoader.load(getClass().getResource("KVCSpelGUI.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public Grondstof getGekozenGrondstof() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ArrayList<Grondstof> getTweeSoortenGrondstoffen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    }
 }

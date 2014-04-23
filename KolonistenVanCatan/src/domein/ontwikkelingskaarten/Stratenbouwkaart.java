@@ -7,7 +7,7 @@ package domein.ontwikkelingskaarten;
 
 import domein.Spel;
 import domein.Speler;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 /**
  *

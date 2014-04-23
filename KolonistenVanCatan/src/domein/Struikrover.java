@@ -1,18 +1,18 @@
 package domein;
 
 import java.awt.Point;
-import javafx.geometry.Point2D;
+import java.io.Serializable;
 
 /**
  * in this class you can find all properties and operations for Struikrover
  * 
  * @author Daan
  */
-public class Struikrover {
+public class Struikrover implements Serializable {
     
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     
-    private Point2D plaats;
+    private Coordinate plaats;
     public Spel unnamed_Spel_;
     
     //</editor-fold>
@@ -27,11 +27,11 @@ public class Struikrover {
     
     //<editor-fold defaultstate="collapsed" desc="Operations">
     
-    public Point2D getPlaats() {
+    public Coordinate getPlaats() {
         return this.plaats;
     }
     
-    public void setPlaats(Point2D Plaats) {
+    public void setPlaats(Coordinate Plaats) {
         this.plaats = Plaats;
     }
     

@@ -2,12 +2,12 @@ package domein;
 
 import domein.tegels.*;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.geometry.Point2D;
 
 /**
  * In this class you can find all properties and operations for Spel. //CHECK
@@ -16,13 +16,13 @@ import javafx.geometry.Point2D;
  * @author Anne
  * @date 31-03-2014
  */
-public final class Bord {
+public final class Bord implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //nodig bij spel constructor
     //GUI
-    private ArrayList<Point2D> driesprongen;
-    private ArrayList<Point2D[]> paden = new ArrayList<>();
+    private ArrayList<Coordinate> driesprongen;
+    private ArrayList<Coordinate[]> paden = new ArrayList<>();
     private ArrayList<Hexagon> hexagons;
     private final ArrayList<Tegel> tegels;
 
@@ -30,14 +30,14 @@ public final class Bord {
     private final boolean optieRand;
 
     private final double hexRad;
-    private final Point2D centerBord;
+    private final Coordinate centerBord;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor(naam)">
     public Bord() {
         this.optieRand = true;
-        this.centerBord = new Point2D(300, 300);
+        this.centerBord = new Coordinate(300, 300);
         this.hexRad = 48;
         this.tegels = new ArrayList<>();
 
@@ -71,7 +71,7 @@ public final class Bord {
             for (int i = 0; i < ring; i++) {
                 double x = voorgaandeHexagon.getCenterPositie().getX() - xOff;
                 double y = voorgaandeHexagon.getCenterPositie().getY() + yOff * 3;
-                voorgaandeHexagon = new Hexagon(new Point2D(x, y), hexRad);
+                voorgaandeHexagon = new Hexagon(new Coordinate(x, y), hexRad);
                 exists = false;
                 for (Hexagon h : hexagons) {
                     if (h.getCenterPositie() == voorgaandeHexagon.getCenterPositie()) {
@@ -86,42 +86,42 @@ public final class Bord {
             for (int i = 0; i < ring; i++) {
                 double x = voorgaandeHexagon.getCenterPositie().getX() + xOff * 2;
                 double y = voorgaandeHexagon.getCenterPositie().getY();
-                voorgaandeHexagon = new Hexagon(new Point2D(x, y), hexRad);
+                voorgaandeHexagon = new Hexagon(new Coordinate(x, y), hexRad);
                 //02 (>>)
                 hexagons.add(voorgaandeHexagon);
             }
             for (int i = 0; i < ring; i++) {
                 double x = voorgaandeHexagon.getCenterPositie().getX() + xOff;
                 double y = voorgaandeHexagon.getCenterPositie().getY() - yOff * 3;
-                voorgaandeHexagon = new Hexagon(new Point2D(x, y), hexRad);
+                voorgaandeHexagon = new Hexagon(new Coordinate(x, y), hexRad);
                 //03 (^>)
                 hexagons.add(voorgaandeHexagon);
             }
             for (int i = 0; i < ring; i++) {
                 double x = voorgaandeHexagon.getCenterPositie().getX() - xOff;
                 double y = voorgaandeHexagon.getCenterPositie().getY() - yOff * 3;
-                voorgaandeHexagon = new Hexagon(new Point2D(x, y), hexRad);
+                voorgaandeHexagon = new Hexagon(new Coordinate(x, y), hexRad);
                 //04 (<^)
                 hexagons.add(voorgaandeHexagon);
             }
             for (int i = 0; i < ring; i++) {
                 double x = voorgaandeHexagon.getCenterPositie().getX() - xOff * 2;
                 double y = voorgaandeHexagon.getCenterPositie().getY();
-                voorgaandeHexagon = new Hexagon(new Point2D(x, y), hexRad);
+                voorgaandeHexagon = new Hexagon(new Coordinate(x, y), hexRad);
                 //05 (<<)
                 hexagons.add(voorgaandeHexagon);
             }
             for (int i = 0; i < ring; i++) {
                 double x = voorgaandeHexagon.getCenterPositie().getX() - xOff;
                 double y = voorgaandeHexagon.getCenterPositie().getY() + yOff * 3;
-                voorgaandeHexagon = new Hexagon(new Point2D(x, y), hexRad);
+                voorgaandeHexagon = new Hexagon(new Coordinate(x, y), hexRad);
                 //06 (<v)
                 hexagons.add(voorgaandeHexagon);
             }
             for (int i = 0; i < ring - 1; i++) {
                 double x = voorgaandeHexagon.getCenterPositie().getX() + xOff;
                 double y = voorgaandeHexagon.getCenterPositie().getY() + yOff * 3;
-                voorgaandeHexagon = new Hexagon(new Point2D(x, y), hexRad);
+                voorgaandeHexagon = new Hexagon(new Coordinate(x, y), hexRad);
                 //07 (v>)
                 hexagons.add(voorgaandeHexagon);
             }
@@ -238,7 +238,7 @@ public final class Bord {
     }
 
     public void setTutorialbord() {
-        Hexagon h = new Hexagon(new Point2D(327.5, 334), hexRad);
+        Hexagon h = new Hexagon(new Coordinate(327.5, 334), hexRad);
         //tegels.add(new Woestijntegel(hexagons.get(0)));
         tegels.add(new Woestijntegel(h));
         tegels.add(new Landtegel(3, Grondstof.HOUT, hexagons.get(1)));
@@ -280,46 +280,46 @@ public final class Bord {
         tegels.add(new Zeetegel(hexagons.get(37)));
         for (Tegel t : tegels)
         {
-            Point2D hoek1 = t.getPlaats().getVertices()[0];
-            Point2D hoek2 = t.getPlaats().getVertices()[1];
-            Point2D hoek3 = t.getPlaats().getVertices()[2];
-            Point2D hoek4 = t.getPlaats().getVertices()[3];
-            Point2D hoek5 = t.getPlaats().getVertices()[4];
-            Point2D hoek6 = t.getPlaats().getVertices()[5];
+            Coordinate hoek1 = t.getPlaats().getVertices()[0];
+            Coordinate hoek2 = t.getPlaats().getVertices()[1];
+            Coordinate hoek3 = t.getPlaats().getVertices()[2];
+            Coordinate hoek4 = t.getPlaats().getVertices()[3];
+            Coordinate hoek5 = t.getPlaats().getVertices()[4];
+            Coordinate hoek6 = t.getPlaats().getVertices()[5];
 
-            ArrayList<Point2D[]> hexagonPaden = new ArrayList<>();
-            Point2D[] pad56 = new Point2D[2];
-            //Point2D[] pad65 = new Point2D[2]; OMGEKEERDE MOGELIJKHEDEN!
+            ArrayList<Coordinate[]> hexagonPaden = new ArrayList<>();
+            Coordinate[] pad56 = new Coordinate[2];
+            //Coordinate[] pad65 = new Coordinate[2]; OMGEKEERDE MOGELIJKHEDEN!
             pad56[0] = hoek5;
             pad56[1] = hoek6;
             if (!paden.contains(pad56))
                 paden.add(pad56);
                         
-            Point2D[] pad61 = new Point2D[2];
+            Coordinate[] pad61 = new Coordinate[2];
             pad56[0] = hoek6;
             pad56[1] = hoek1;
             if (!paden.contains(pad61))
                 paden.add(pad61);
                         
-            Point2D[] pad12 = new Point2D[2];
+            Coordinate[] pad12 = new Coordinate[2];
             pad56[0] = hoek1;
             pad56[1] = hoek2;
             if (!paden.contains(pad12))
                 paden.add(pad12);
                         
-            Point2D[] pad23 = new Point2D[2];
+            Coordinate[] pad23 = new Coordinate[2];
             pad56[0] = hoek2;
             pad56[1] = hoek3;
             if (!paden.contains(pad23))
                 paden.add(pad23);
                         
-            Point2D[] pad34 = new Point2D[2];
+            Coordinate[] pad34 = new Coordinate[2];
             pad56[0] = hoek3;
             pad56[1] = hoek4;
             if (!paden.contains(pad34))
                 paden.add(pad34);
             
-            Point2D[] pad45 = new Point2D[2];
+            Coordinate[] pad45 = new Coordinate[2];
             pad56[0] = hoek4;
             pad56[1] = hoek5;
             if (!paden.contains(pad45))
@@ -338,7 +338,7 @@ public final class Bord {
                 }
             }
             
-//            for (Point2D[] pad : paden)
+//            for (Coordinate[] pad : paden)
 //            {
 //                index++;
 //                try {
@@ -395,11 +395,11 @@ public final class Bord {
         return optieRand;
     }
 
-    public ArrayList<Point2D> getDriesprongen() {
+    public ArrayList<Coordinate> getDriesprongen() {
         return driesprongen;
     }
 
-    public ArrayList<Point2D[]> getPaden() {
+    public ArrayList<Coordinate[]> getPaden() {
         return paden;
     }
 

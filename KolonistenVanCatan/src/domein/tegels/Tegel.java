@@ -1,6 +1,7 @@
 package domein.tegels;
 
 import domein.*;
+import java.io.Serializable;
 
 
 /**
@@ -12,7 +13,7 @@ import domein.*;
  * @author //TODO
  * @date //TODO
  */
-public class Tegel {
+public class Tegel implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private final Hexagon plaats;

@@ -1,8 +1,8 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -12,39 +12,39 @@ import javafx.scene.shape.Rectangle;
  * @author Anne Toonen
  * @date 25-03-2014
  */
-public class Hexagon {
+public class Hexagon implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private final Point2D[] vertices;
+    private final Coordinate[] vertices;
     private final double radius;
-    private final Point2D centerPositie;
-    private final Point2D imagePositie;
-    private final Point2D numberPositie;
+    private final Coordinate centerPositie;
+    private final Coordinate imagePositie;
+    private final Coordinate numberPositie;
 
 	//</editor-fold>
 	
     //<editor-fold desc="Operations">
     //<editor-fold desc="Constructor">
-    public Hexagon(Point2D centerPosition, double radius) {
+    public Hexagon(Coordinate centerPosition, double radius) {
         this.radius = radius;
         this.centerPositie = centerPosition;
 
-        vertices = new Point2D[6];
+        vertices = new Coordinate[6];
         setHoekCoördinaten();
         
         double X = (double) (Math.cos(hoek(150)) * radius + (double) centerPositie.getX());
         double Y = (double) ((double) centerPositie.getY() - Math.sin(hoek(90)) * radius);
-        imagePositie = new Point2D(X, Y);
+        imagePositie = new Coordinate(X, Y);
 
         X = (double) (centerPositie.getX() - 14);
         Y = (double) (centerPositie.getY() - 14);
-        numberPositie = new Point2D(X, Y);
+        numberPositie = new Coordinate(X, Y);
         
     }
     //</editor-fold>
 
     //<editor-fold desc="Getters & Setters">
-    public Point2D[] getVertices() {
+    public Coordinate[] getVertices() {
         return vertices;
     }
 
@@ -52,15 +52,15 @@ public class Hexagon {
         return radius;
     }
 
-    public Point2D getCenterPositie() {
+    public Coordinate getCenterPositie() {
         return centerPositie;
     }
 
-    public Point2D getImagePositie() {
+    public Coordinate getImagePositie() {
         return imagePositie;
     }
 
-    public Point2D getNumberPositie() {
+    public Coordinate getNumberPositie() {
         return numberPositie;
     }
 
@@ -78,19 +78,19 @@ public class Hexagon {
         double Fx = (double) (Math.cos(hoek(330)) * radius + centerPositie.getX());
         double Fy = (double) (Math.sin(hoek(330)) * radius + centerPositie.getY());
 
-        vertices[0] = new Point2D(Ax, Ay);
-        vertices[1] = new Point2D(Bx, By);
-        vertices[2] = new Point2D(Cx, Cy);
-        vertices[3] = new Point2D(Dx, Dy);
-        vertices[4] = new Point2D(Ex, Ey);
-        vertices[5] = new Point2D(Fx, Fy);
+        vertices[0] = new Coordinate(Ax, Ay);
+        vertices[1] = new Coordinate(Bx, By);
+        vertices[2] = new Coordinate(Cx, Cy);
+        vertices[3] = new Coordinate(Dx, Dy);
+        vertices[4] = new Coordinate(Ex, Ey);
+        vertices[5] = new Coordinate(Fx, Fy);
 
     }
 
     public List<Rectangle> setVestingRectangels() {
         List<Rectangle> rectangles = new ArrayList<>();
 
-        for (Point2D p : vertices) {
+        for (Coordinate p : vertices) {
             //driesprongen
             double p1x = (double) (p.getX() - radius);
             double p1y = (double) (p.getY() - radius);

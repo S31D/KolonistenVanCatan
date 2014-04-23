@@ -1,7 +1,6 @@
 package domein;
 
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 /**
  * In this class you can find all properties and operations for Vesting
@@ -12,8 +11,8 @@ public class Vesting {
     
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     
-    private Point2D plaats;
-    private final Color kleur;
+    private Coordinate plaats;
+    private final Kleur kleur;
     private boolean isStad;
     public Speler speler;
     
@@ -21,7 +20,7 @@ public class Vesting {
     
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     
-    public Vesting(Point2D plaats, Color kleur, boolean isStad) {
+    public Vesting(Coordinate plaats, Kleur kleur, boolean isStad) {
         this.plaats = plaats;
         this.kleur = kleur;
         this.isStad = isStad;
@@ -31,15 +30,15 @@ public class Vesting {
     
     //<editor-fold defaultstate="Collapsed" desc="Operations">
     
-    public Point2D getPlaats() {
+    public Coordinate getPlaats() {
         return this.plaats;
     }
     
-    public void setPlaats(Point2D plaats) {
+    public void setPlaats(Coordinate plaats) {
         this.plaats = plaats;
     }
     
-    public Color getKleur() {
+    public Kleur getKleur() {
         return this.kleur;
     }
     

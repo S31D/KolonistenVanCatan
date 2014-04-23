@@ -1,11 +1,10 @@
 package domein;
 
 import domein.ontwikkelingskaarten.IOntwikkelingskaart;
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
 
 /**
  * In this class you can find all properties and operations for Bot. //CHECK
@@ -17,7 +16,6 @@ import javafx.scene.paint.Color;
 public class Bot extends Speler {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private Bot bot;
     Random r;
     private int moeilijkheidsgraad;
     private ArrayList<Grondstof> grondstoffen;
@@ -32,14 +30,13 @@ public class Bot extends Speler {
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor(moeilijkheidsgraad)">
     public Bot(int moeilijkheidsgraad, String naam, Color Black) {
-        super(naam, Black);
+        super(naam, new Kleur(Black));
         this.moeilijkheidsgraad = moeilijkheidsgraad;
 
         this.Ontwikkelingskaarten = new ArrayList<>();
         this.Straten = new ArrayList<>();
         this.Vestigingen = new ArrayList<>();
         r = new Random();
-        bot = new Bot(1, "Botje", Color.BLACK);
     }
     //</editor-fold>
 
@@ -57,13 +54,13 @@ public class Bot extends Speler {
 
     //<editor-fold defaultstate="collapsed" desc="dorpBouwen">
     public void dorpBouwen() {
-        spel.dorpBouwen(bot);
+        spel.dorpBouwen(this);
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="straatBouwen">
     public void straatBouwen() {
-        spel.straatBouwen(bot);
+        spel.straatBouwen(this);
 
     }
     //</editor-fold>
@@ -84,7 +81,7 @@ public class Bot extends Speler {
 
     //<editor-fold defaultstate="collapsed" desc="creeerStad">
     public void stadBouwen() {
-        spel.creëerStad(bot);
+        spel.creëerStad(this);
     }
     //</editor-fold>
 
