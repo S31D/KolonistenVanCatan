@@ -5,19 +5,26 @@ import domein.Speler;
 import domein.Straat;
 import domein.Vesting;
 import domein.tegels.Tegel;
+import java.awt.Image;
 import java.util.ArrayList;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -37,7 +44,7 @@ import javafx.stage.Stage;
  * @author Anne Toonen
  * @date 24-03-2014
  */
-public class KVCSpelGUI {
+public class KVCSpelGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //Spel
@@ -255,10 +262,6 @@ public class KVCSpelGUI {
         stage.setScene(scene);
         stage.show();
     }
-    
-    public static void main(String[] args) {
-        launch(args);
-    }
     //</editor-fold>
 
     public void setDorp(Vesting v) {
@@ -295,6 +298,29 @@ public class KVCSpelGUI {
 
     public void grondstoffenInleveren(Speler s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    /**
+     * The main() method is ignored in correctly deployed JavaFX 
+     * application. main() serves only as fallback in case the 
+     * application can not be launched through deployment artifacts,
+     * e.g., in IDEs with limited FX support. NetBeans ignores main().
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+       
+        primaryStage.setTitle("Kolonisten van catan");
+        Parent root = FXMLLoader.load(getClass().getResource("KVCSpelGUI.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 }
