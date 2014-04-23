@@ -1,6 +1,7 @@
 package kolonistenvancatan;
 
 import domein.Coordinate;
+import domein.Grondstof;
 import domein.Kleur;
 import domein.Spel;
 import domein.Speler;
@@ -324,4 +325,11 @@ public class KVCSpelGUI extends Application {
         primaryStage.show();
     }
 
+    public Grondstof getGekozenGrondstof() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ArrayList<Grondstof> getTweeSoortenGrondstoffen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

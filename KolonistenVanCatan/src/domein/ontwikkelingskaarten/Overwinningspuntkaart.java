@@ -29,6 +29,7 @@ public class Overwinningspuntkaart implements IOntwikkelingskaart{
     @Override
     public void actie() 
     {
+        
     }
 
       @Override

@@ -6,6 +6,11 @@
 package domein;
 
 import domein.ontwikkelingskaarten.IOntwikkelingskaart;
+import domein.ontwikkelingskaarten.Monopoliekaart;
+import domein.ontwikkelingskaarten.Overwinningspuntkaart;
+import domein.ontwikkelingskaarten.Ridderkaart;
+import domein.ontwikkelingskaarten.Stratenbouwkaart;
+import domein.ontwikkelingskaarten.Uitvindingkaart;
 import domein.tegels.Tegel;
 import java.awt.Point;
 import java.io.Serializable;
@@ -34,6 +39,7 @@ public class Spel implements Serializable {
     //GUI
     private Speler activeSpeler;
     private KVCSpelGUI gui;
+    private Bord b;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(naam)">
@@ -111,41 +117,41 @@ public class Spel implements Serializable {
 
     public void creëerStad(Speler speler) {
         ArrayList<Coordinate> mogelijkeDorpen = new ArrayList<Coordinate>();
-        if(speler instanceof Bot){
-                    if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
-            for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
-                mogelijkeDorpen.add(p);
+        if (speler instanceof Bot) {
+            if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
+                for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
+                    mogelijkeDorpen.add(p);
 
-                Coordinate stadPlek = mogelijkeDorpen.get(r.nextInt(mogelijkeDorpen.size()));
-                Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
-                speler.setStad(v);
-                gui.setStad(v);
+                    Coordinate stadPlek = mogelijkeDorpen.get(r.nextInt(mogelijkeDorpen.size()));
+                    Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
+                    speler.setStad(v);
+                    gui.setStad(v);
 
-                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.GRAAN) - 2);
-                speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.ERTS) - 3);
+                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.GRAAN) - 2);
+                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.ERTS) - 3);
+                }
+            } else {
             }
         } else {
-        }
-        }else{
-        if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
-            for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
-                mogelijkeDorpen.add(p);
+            if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
+                for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
+                    mogelijkeDorpen.add(p);
 
-                Coordinate stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
-                Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
-                speler.setStad(v);
-                gui.setStad(v);
+                    Coordinate stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
+                    Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
+                    speler.setStad(v);
+                    gui.setStad(v);
 
-                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.GRAAN) - 2);
-                speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.ERTS) - 3);
+                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.GRAAN) - 2);
+                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.ERTS) - 3);
+                }
+            } else {
             }
-        } else {
         }
     }
-    }
-    
+
     public void straatBouwen(Speler speler) {
         if (speler instanceof Bot) {
             if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
@@ -169,8 +175,14 @@ public class Spel implements Serializable {
     }
 
     public void straatBouwenKaart(Speler speler) {
+        Straat s = null;
         ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
-        Straat s = gui.getStraat(straten, speler.getKleur());
+
+        if (activeSpeler instanceof Bot) {
+            s = straten.get(r.nextInt(straten.size()));
+        } else {
+            s = gui.getStraat(straten, speler.getKleur());
+        }
         speler.setStraat(s);
         gui.setStraat(s);
     }
@@ -224,7 +236,14 @@ public class Spel implements Serializable {
     }
 
     public ArrayList<Kleur> struikroverVerzetten() {
-        Tegel t = gui.setStruikrover();
+        Tegel t = null;
+        if (this.activeSpeler instanceof Bot) {
+            ArrayList<Tegel> alleTegels = null;
+            alleTegels.addAll(b.getTegels("Landtegel"));
+            t = alleTegels.get(r.nextInt(alleTegels.size()));
+        } else {
+            t = gui.setStruikrover();
+        }
         struikrover.setPlaats(t.getPlaats().getCenterPositie());
         Hexagon h = t.getPlaats();
         Coordinate p = struikrover.getPlaats();
@@ -326,21 +345,41 @@ public class Spel implements Serializable {
         }
         return vrijePaden;
     }
-    
+
     public void ontwikkelingskaartInzetten() {
-        throw new UnsupportedOperationException();
+        if (activeSpeler instanceof Bot) {
+            ArrayList<IOntwikkelingskaart> alleKaarten = activeSpeler.getOntwikkelingskaarten();
+            IOntwikkelingskaart randomKaart = alleKaarten.get(r.nextInt(alleKaarten.size()));
+            if (randomKaart.getNaam() == "Monopoliekaart") {
+                Monopoliekaart mo = new Monopoliekaart();
+                mo.actie();
+            } else if (randomKaart.getNaam() == "Overwinningspuntkaart") {
+                Overwinningspuntkaart ov = new Overwinningspuntkaart();
+                ov.actie();
+            } else if (randomKaart.getNaam() == "Ridderkaart") {
+                Ridderkaart ri = new Ridderkaart();
+                ri.actie();
+            } else if (randomKaart.getNaam() == "Stratenbouwkaart") {
+                Stratenbouwkaart st = new Stratenbouwkaart();
+                st.actie();
+            } else if (randomKaart.getNaam() == "Uitvindingkaart") {
+                Uitvindingkaart ui = new Uitvindingkaart();
+                ui.actie();
+            }
+
+        }
     }
 
     public IOntwikkelingskaart ontwikkelingskaartKopen() {
         throw new UnsupportedOperationException();
     }
 
-    public void getOntwikkelingskaart() {
-        throw new UnsupportedOperationException();
-    }    
-
     private ArrayList<IOntwikkelingskaart> addOntwikkelingskaarten() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     //</editor-fold>
+
+    public Speler getActiveSpeler() {
+        return this.activeSpeler;
+    }
 }
