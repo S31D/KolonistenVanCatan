@@ -36,7 +36,6 @@ public class Spel {
     private KVCSpelGUI gui;
     //</editor-fold>
 
-    //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor(naam)">
     /**
      *
@@ -50,7 +49,6 @@ public class Spel {
         //this.Ontwikkelingskaarten = addOntwikkelingskaarten();
         this.struikrover = new Struikrover();
         this.bord = new Bord();
-
     }
     //</editor-fold>
 
@@ -258,7 +256,6 @@ public class Spel {
             }
         }
     }
-    //</editor-fold>
 
     private Iterable<Point2D> controleerBeschikbaarheidVestiging(boolean b) {
         ArrayList<Vesting> vestingen = activeSpeler.getVestigingen();
@@ -345,4 +342,5 @@ public class Spel {
     private ArrayList<IOntwikkelingskaart> addOntwikkelingskaarten() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    //</editor-fold>
 }
