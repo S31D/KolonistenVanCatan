@@ -8,18 +8,18 @@ package domein;
 import domein.ontwikkelingskaarten.IOntwikkelingskaart;
 import domein.tegels.Tegel;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 import kolonistenvancatan.KVCSpelGUI;
 
 /**
  *
  * @author anne
  */
-public class Spel {
+public class Spel implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //nodig bij spel constructor
@@ -61,18 +61,18 @@ public class Spel {
         return this.spelers.iterator();
     }
 
-    public boolean afstandsRegel(Point2D plaats) {
+    public boolean afstandsRegel(Coordinate plaats) {
         throw new UnsupportedOperationException();
     }
 
     public void dorpBouwen(Speler speler) {
-        ArrayList<Point2D> mogelijkePlaatsen = new ArrayList<Point2D>();
+        ArrayList<Coordinate> mogelijkePlaatsen = new ArrayList<Coordinate>();
         if (speler == this.activeSpeler) {
             if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
-                for (Point2D p : controleerBeschikbaarheidVestiging(true)) {
+                for (Coordinate p : controleerBeschikbaarheidVestiging(true)) {
                     mogelijkePlaatsen.add(p);
 
-                    Point2D dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
+                    Coordinate dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
                     Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
                     speler.setDorp(v);
                     gui.setDorp(v);
@@ -88,10 +88,10 @@ public class Spel {
             }
         } else {
             if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
-                for (Point2D p : controleerBeschikbaarheidVestiging(true)) {
+                for (Coordinate p : controleerBeschikbaarheidVestiging(true)) {
                     mogelijkePlaatsen.add(p);
 
-                    Point2D dorpPlek = mogelijkePlaatsen.get(r.nextInt(mogelijkePlaatsen.size()));
+                    Coordinate dorpPlek = mogelijkePlaatsen.get(r.nextInt(mogelijkePlaatsen.size()));
                     Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
                     speler.setDorp(v);
                     gui.setDorp(v);
@@ -110,13 +110,13 @@ public class Spel {
     }
 
     public void creëerStad(Speler speler) {
-        ArrayList<Point2D> mogelijkeDorpen = new ArrayList<Point2D>();
+        ArrayList<Coordinate> mogelijkeDorpen = new ArrayList<Coordinate>();
         if(speler instanceof Bot){
                     if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
-            for (Point2D p : controleerBeschikbaarheidVestiging(false)) {
+            for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
                 mogelijkeDorpen.add(p);
 
-                Point2D stadPlek = mogelijkeDorpen.get(r.nextInt(mogelijkeDorpen.size()));
+                Coordinate stadPlek = mogelijkeDorpen.get(r.nextInt(mogelijkeDorpen.size()));
                 Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
                 speler.setStad(v);
                 gui.setStad(v);
@@ -129,10 +129,10 @@ public class Spel {
         }
         }else{
         if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
-            for (Point2D p : controleerBeschikbaarheidVestiging(false)) {
+            for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
                 mogelijkeDorpen.add(p);
 
-                Point2D stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
+                Coordinate stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
                 Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
                 speler.setStad(v);
                 gui.setStad(v);
@@ -223,20 +223,20 @@ public class Spel {
         }
     }
 
-    public ArrayList<Color> struikroverVerzetten() {
+    public ArrayList<Kleur> struikroverVerzetten() {
         Tegel t = gui.setStruikrover();
         struikrover.setPlaats(t.getPlaats().getCenterPositie());
         Hexagon h = t.getPlaats();
-        Point2D p = struikrover.getPlaats();
-        Point2D[] hoeken = h.getVertices();
+        Coordinate p = struikrover.getPlaats();
+        Coordinate[] hoeken = h.getVertices();
         ArrayList<Vesting> vestingen = new ArrayList<>();
         Iterator<Speler> spelers = this.getSpelers();
-        ArrayList<Color> aanliggendeSpelers = new ArrayList<>();
+        ArrayList<Kleur> aanliggendeSpelers = new ArrayList<>();
         while (spelers.hasNext()) {
             Speler s = spelers.next();
             vestingen.addAll(s.getVestigingen());
         }
-        for (Point2D hoek : hoeken) {
+        for (Coordinate hoek : hoeken) {
             for (Vesting v : vestingen) {
                 if (hoek.getX() > v.getPlaats().getX() - 2 && hoek.getX() < v.getPlaats().getX() + 2 && hoek.getY() > v.getPlaats().getY() - 2 && hoek.getY() < v.getPlaats().getX() + 2) {
                     if (!aanliggendeSpelers.contains(v.getKleur())) {
@@ -257,18 +257,18 @@ public class Spel {
         }
     }
 
-    private Iterable<Point2D> controleerBeschikbaarheidVestiging(boolean b) {
+    private Iterable<Coordinate> controleerBeschikbaarheidVestiging(boolean b) {
         ArrayList<Vesting> vestingen = activeSpeler.getVestigingen();
         ArrayList<Straat> straten = activeSpeler.getStraten();
-        ArrayList<Point2D> driesprongen = bord.getDriesprongen();
+        ArrayList<Coordinate> driesprongen = bord.getDriesprongen();
 
-        ArrayList<Point2D> vrijePlekkenDorp = new ArrayList<Point2D>();
-        ArrayList<Point2D> vrijePlekkenStad = new ArrayList<Point2D>();
-        ArrayList<Point2D> vrijePlekken = new ArrayList<Point2D>();
+        ArrayList<Coordinate> vrijePlekkenDorp = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> vrijePlekkenStad = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> vrijePlekken = new ArrayList<Coordinate>();
         if (b) {
             //KRIJG ALLE VRIJE DRIESPRONGEN
             for (Vesting v : vestingen) {
-                for (Point2D p : driesprongen) {
+                for (Coordinate p : driesprongen) {
                     if (v.getPlaats().equals(p.getX()) || v.getPlaats().equals(p.getY())) {
                     } else {
                         vrijePlekkenDorp.add(p);
@@ -276,14 +276,14 @@ public class Spel {
                 }
             }
             //KIJK OF JE OP EEN VAN DE VRIJE DRIESPRONGEN ZOU MOGEN BOUWEN
-            for (Point2D p2D : vrijePlekkenDorp) {
+            for (Coordinate p2D : vrijePlekkenDorp) {
                 if (this.afstandsRegel(p2D)) {
                 } else {
                     vrijePlekkenDorp.remove(p2D);
                 }
             }
             //KIJK OF JE AAN EEN EIGEN STRAAT KAN BOUWEN
-            for (Point2D point : vrijePlekkenDorp) {
+            for (Coordinate point : vrijePlekkenDorp) {
                 for (Straat s : this.activeSpeler.getStraten()) {
                     if (s.getPlaats()[0].equals(point) || s.getPlaats()[1].equals(point)) {
                     } else {
@@ -304,10 +304,10 @@ public class Spel {
     }
 
     private ArrayList<Straat> controleerBeschikbaarheidStraat() {
-        ArrayList<Point2D[]> paden = bord.getPaden();
+        ArrayList<Coordinate[]> paden = bord.getPaden();
         ArrayList<Straat> vrijePaden = new ArrayList<Straat>();
         for (Speler speler : this.spelers) {
-            for (Point2D[] p : paden) {
+            for (Coordinate[] p : paden) {
                 for (Straat s : speler.getStraten()) {
                     if (p.equals(s.getPlaats()[0]) && p.equals(s.getPlaats()[1])) {
                     } else {

@@ -1,11 +1,10 @@
 package domein;
 
 import domein.ontwikkelingskaarten.IOntwikkelingskaart;
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
 
 /**
  * In this class you can find all properties and operations for Bot. //CHECK
@@ -32,7 +31,7 @@ public class Bot extends Speler {
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor(moeilijkheidsgraad)">
     public Bot(int moeilijkheidsgraad, String naam, Color Black) {
-        super(naam, Black);
+        super(naam, new Kleur(Black));
         this.moeilijkheidsgraad = moeilijkheidsgraad;
 
         this.Ontwikkelingskaarten = new ArrayList<>();

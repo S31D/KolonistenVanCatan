@@ -9,7 +9,7 @@ import domein.Speler;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 /**
  *
@@ -97,6 +97,16 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         return null;
     }
     
-    
+    public void voegSpelerToeAanSpel(Speler speler, String spel)
+    {
+        for (Spel s : spellen)
+        {
+            if (s.getNaam().equals(spel))
+            {
+                //s.addspeler(speler);
+                System.out.println(speler.getNaam() +" toegevoegd aan "+ spel);
+            }
+        }
+    }
     
 }

@@ -6,8 +6,9 @@
 
 package domein;
 
+import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
 
 /**
  * In this class you can find all properties and operations for Speler. 
@@ -17,12 +18,12 @@ import javafx.scene.paint.Color;
  * @author          anne
  * @date            9-apr-2014 
  */
-public class Speler {
+public class Speler implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private final String gebruikersnaam;
     private ArrayList<Object[]> aantallenVanGrondstoffen;
     private int overwinningspunten;
-    private final Color kleur;
+    private final Kleur kleur;
     private ArrayList<Vesting> Vestigingen;
     private ArrayList<Straat> Straten;
     //private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
@@ -30,7 +31,7 @@ public class Speler {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
-    public Speler(String naam, Color kleur){
+    public Speler(String naam, Kleur kleur){
         this.gebruikersnaam = naam;
         this.kleur = kleur;
         this.Vestigingen = new ArrayList<>();
@@ -44,7 +45,7 @@ public class Speler {
         return gebruikersnaam;
     }
     
-    public Color getKleur(){
+    public Kleur getKleur(){
         return kleur;
     }
     

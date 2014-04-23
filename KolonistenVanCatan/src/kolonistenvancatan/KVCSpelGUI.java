@@ -1,5 +1,7 @@
 package kolonistenvancatan;
 
+import domein.Coordinate;
+import domein.Kleur;
 import domein.Spel;
 import domein.Speler;
 import domein.Straat;
@@ -15,7 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -30,7 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -141,8 +142,8 @@ public class KVCSpelGUI extends Application {
 
     //</editor-fold>
     //Dorp bouwen
-    public Point2D keuzePlaatsDorp(ArrayList<Point2D> mogelijkheden) {
-        Point2D returner;
+    public Coordinate keuzePlaatsDorp(ArrayList<Coordinate> mogelijkheden) {
+        Coordinate returner;
         returner = mogelijkheden.get(0);
 
         return returner;
@@ -202,7 +203,7 @@ public class KVCSpelGUI extends Application {
         okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                GUISpeler = new Speler(tfGUISpeler.getText(), Color.BLUE);
+                GUISpeler = new Speler(tfGUISpeler.getText(), new Kleur(Color.BLUE));
                 myDialog.close();
             }
         });
@@ -272,7 +273,7 @@ public class KVCSpelGUI extends Application {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Straat getStraat(ArrayList<Straat> straten, Color kleur) {
+    public Straat getStraat(ArrayList<Straat> straten, Kleur kleur) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

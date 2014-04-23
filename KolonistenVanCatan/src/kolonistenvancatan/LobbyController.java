@@ -4,6 +4,7 @@
  */
 package kolonistenvancatan;
 
+import domein.Kleur;
 import domein.Spel;
 import domein.Speler;
 import java.net.MalformedURLException;
@@ -29,7 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 /**
  *
@@ -304,6 +305,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                 if (s.equals(selectedGame))
                 {
                     Spel spel = lobby.getSpel(selectedGame);
+                    lobby.voegSpelerToeAanSpel(new Speler(naam, new Kleur(Color.CYAN)), s);
+                    System.out.println("succes");
                 }
             }
         } catch (RemoteException ex) {
