@@ -25,4 +25,5 @@ public interface ILobby extends Remote {
     public void addSpel(String s) throws RemoteException;
     public ArrayList<String> getSpellen() throws RemoteException;
     public int getAantalSpellen() throws RemoteException;
+    public Spel getSpel(String naam) throws RemoteException;
 }

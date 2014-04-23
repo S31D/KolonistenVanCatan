@@ -6,6 +6,7 @@ import domein.Straat;
 import domein.Vesting;
 import domein.tegels.Tegel;
 import java.util.ArrayList;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -253,6 +254,10 @@ public class KVCSpelGUI {
         stage.setTitle("Kolonisten Van Catan");
         stage.setScene(scene);
         stage.show();
+    }
+    
+    public static void main(String[] args) {
+        launch(args);
     }
     //</editor-fold>
 

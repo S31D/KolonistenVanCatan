@@ -88,6 +88,14 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public int getAantalSpellen() throws RemoteException {
         return spellen.size();
     }
+
+    @Override
+    public Spel getSpel(String naam) throws RemoteException {
+        for (Spel s : spellen)
+            if (s.getNaam().equals(naam))
+                return s;
+        return null;
+    }
     
     
     

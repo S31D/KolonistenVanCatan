@@ -28,6 +28,7 @@ import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 /**
@@ -44,6 +45,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     @FXML TextField taChatMessage;
     @FXML ListView lvSpellen;
     @FXML Button btHost;
+    @FXML Button btJoin;
     // Set flag locateRegistry when binding using registry
     // Reset flag locateRegistry when binding using Naming
     private static boolean locateRegistry = true;
@@ -55,6 +57,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     private Timer t = new Timer();
     private int aantalSpelers = 0;
     private int aantalSpellen = 0;
+    String selectedGame = "";
     private String naam;
     
     // Constructor
@@ -66,6 +69,39 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         System.out.println("Client: IP Address: " + ipAddress);
         System.out.println("Client: Port number " + portNumber);
 
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                        lvSpellen.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent t) {
+                try {
+                    selectedGame = (String) lvSpellen.getSelectionModel().getSelectedItem();
+                }
+                catch (NullPointerException e)
+                {
+                    if (selectedGame.length() > 0)
+                    {
+                        btJoin.setVisible(true);
+                    }
+                    else
+                    {
+                        btJoin.setVisible(false);
+                    }
+                }
+                finally
+                {
+                    if (selectedGame.length() > 0)
+                        btJoin.setVisible(true);
+                    else
+                        btJoin.setVisible(false);
+                }
+            }
+        });
+            }
+        });
                 t.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -255,6 +291,21 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     {
         try {
             lobby.addSpel(naam + "'s Game");
+        } catch (RemoteException ex) {
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void joinGame()
+    {
+        try {
+            for (String s : lobby.getSpellen())
+            {
+                if (s.equals(selectedGame))
+                {
+                    Spel spel = lobby.getSpel(selectedGame);
+                }
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
