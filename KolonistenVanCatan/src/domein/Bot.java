@@ -16,7 +16,6 @@ import java.util.Random;
 public class Bot extends Speler {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private Bot bot;
     Random r;
     private int moeilijkheidsgraad;
     private ArrayList<Grondstof> grondstoffen;
@@ -38,7 +37,6 @@ public class Bot extends Speler {
         this.Straten = new ArrayList<>();
         this.Vestigingen = new ArrayList<>();
         r = new Random();
-        bot = new Bot(1, "Botje", Color.BLACK);
     }
     //</editor-fold>
 
@@ -56,13 +54,13 @@ public class Bot extends Speler {
 
     //<editor-fold defaultstate="collapsed" desc="dorpBouwen">
     public void dorpBouwen() {
-        spel.dorpBouwen(bot);
+        spel.dorpBouwen(this);
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="straatBouwen">
     public void straatBouwen() {
-        spel.straatBouwen(bot);
+        spel.straatBouwen(this);
 
     }
     //</editor-fold>
@@ -83,7 +81,7 @@ public class Bot extends Speler {
 
     //<editor-fold defaultstate="collapsed" desc="creeerStad">
     public void stadBouwen() {
-        spel.creëerStad(bot);
+        spel.creëerStad(this);
     }
     //</editor-fold>
 
