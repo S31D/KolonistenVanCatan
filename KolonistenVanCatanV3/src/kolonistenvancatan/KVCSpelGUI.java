@@ -29,6 +29,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -244,19 +247,15 @@ public class KVCSpelGUI extends Application {
         Stage stage = new Stage();
         this.spel = spel;
         this.GUISpeler = speler;
-        BorderPane borderPane = new BorderPane();
-        //borderPane.setLeft(tegenspelers());
-        borderPane.setCenter(Canvas());
-        //borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
-        //borderPane.setRight(tegenspeler(new Speler("Daan")));
-
-        StackPane root = new StackPane();
-        root.getChildren().add(borderPane);
-        root.getChildren().add(Chat());
-
-        Scene scene = new Scene(root, 300, 250);
-
-        stage.setTitle("Kolonisten Van Catan");
+        Parent root = null;
+               
+        try {
+            root = FXMLLoader.load(getClass().getResource("KVCSpelGUI.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(KVCSpelGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
