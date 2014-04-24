@@ -1,5 +1,6 @@
 package kolonistenvancatan;
 
+import domein.Bord;
 import domein.Coordinate;
 import domein.Grondstof;
 import domein.Kleur;
@@ -7,7 +8,11 @@ import domein.Spel;
 import domein.Speler;
 import domein.Straat;
 import domein.Vesting;
+import domein.tegels.Haventegel;
+import domein.tegels.Landtegel;
 import domein.tegels.Tegel;
+import domein.tegels.Woestijntegel;
+import domein.tegels.Zeetegel;
 import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -33,6 +38,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -50,8 +56,9 @@ public class KVCSpelGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //Spel
-    private Spel spel;
+    private Spel spel = new Spel("gio");
     private Speler GUISpeler;
+    private Bord bord;
 
     //Canvas
     private Canvas catan;
@@ -63,12 +70,12 @@ public class KVCSpelGUI extends Application {
     //<editor-fold defaultstate="collapsed" desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Teken op Canvas">
     private void drawBord() {
-        /*
+        
          // Graphics
          gc = catan.getGraphicsContext2D();
          Image imageTegel = null;
          Image imageNummer = null;
-         spel.getBord().getAlleTegels();
+         //spel.getBord().getAlleTegels();
         
          //voor elke tegel
          for (Tegel t : spel.getBord().getAlleTegels()) {
@@ -138,7 +145,6 @@ public class KVCSpelGUI extends Application {
          gc.drawImage(imageTegel, 0, 0);
          }
          }
-         */
     }
 
     //</editor-fold>
@@ -313,10 +319,18 @@ public class KVCSpelGUI extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-       
+        BorderPane borderPane = new BorderPane();
+        GridPane gridPane = new GridPane();
+        catan = new Canvas(650,650);
+        drawBord();
+        gridPane.add(catan, 0, 0, 25, 25);
+        borderPane.getChildren().add(gridPane);
         primaryStage.setTitle("Kolonisten van catan");
         Parent root = FXMLLoader.load(getClass().getResource("KVCSpelGUI.fxml"));
-        Scene scene = new Scene(root);
+        StackPane roots = new StackPane();
+        roots.getChildren().add(borderPane);
+        roots.getChildren().add(root);
+        Scene scene = new Scene(roots);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

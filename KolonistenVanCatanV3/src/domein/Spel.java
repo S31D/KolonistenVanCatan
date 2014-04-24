@@ -389,4 +389,8 @@ public class Spel implements Serializable {
     public Speler getActiveSpeler() {
         return this.activeSpeler;
     }
+    
+    public Bord getBord(){
+        return this.bord;
+    }
 }
