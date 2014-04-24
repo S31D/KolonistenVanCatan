@@ -14,6 +14,9 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javax.swing.text.html.ListView;
 
@@ -34,7 +37,13 @@ public class SpelController extends UnicastRemoteObject implements Initializable
     @FXML ImageView imgMonopolie; 
     @FXML ImageView imgUitvinding; 
     @FXML ImageView imgOverwinningspunt; 
-    @FXML ImageView imgStratenbouw; 
+    @FXML ImageView imgStratenbouw;
+    @FXML Button btnHandelen;
+    @FXML Button btnHandelenbank;
+    @FXML Button btnBeurt;
+    @FXML ListView lvSpelers;
+    @FXML TextArea taChatbox;
+    @FXML TextField tfChatbox;
     
     /**
      *
