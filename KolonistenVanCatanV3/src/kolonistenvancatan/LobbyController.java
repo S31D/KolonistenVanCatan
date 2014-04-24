@@ -292,6 +292,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     {
         try {
             Spel spel = lobby.addSpel(naam + "'s Game");
+            spel.setLobby(lobby);
             KVCSpelGUI kVCSpelGUI = new KVCSpelGUI();
             Speler speler = new Speler(naam, new Kleur(Color.RED));
             kVCSpelGUI.start(spel, speler);

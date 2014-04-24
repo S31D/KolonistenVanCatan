@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import java.awt.Color;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.shape.Circle;
@@ -326,5 +327,14 @@ public class KVCSpelGUI extends Application {
 
     public ArrayList<Grondstof> getTweeSoortenGrondstoffen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    }
+    
+    public void testConnectie()
+    {
+        try {
+            spel.lobby.plaatsBericht("TEST", "TEST");
+        } catch (RemoteException ex) {
+            Logger.getLogger(KVCSpelGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
