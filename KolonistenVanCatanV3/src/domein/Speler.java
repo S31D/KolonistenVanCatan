@@ -186,20 +186,20 @@ public class Speler implements Serializable {
 // IK HEB GEEN IDEE HOE IK TEGEL EN LANDTEGEL MOET 'KOPPELEN' WANT ALLEEN LANDTEGELS HEBBEN NUMMERS DIE JE KAN GOOIEN MAAR ER IS GEEN LIJST VAN LANDTEGELS VOLGENS MIJ
         
         Landtegel l = null;
+        Grondstof g = null;
 
-        for (Tegel te : b.getAlleTegels()) {
-            if (te instanceof Landtegel) {
-               
+        for (Tegel te : b.getTegels("LandTegel")) {
                 for (Vesting v : Vestigingen) {
                         for (Coordinate c : h.getVertices()) {
-                            if (c.x == v.getPlaats().x || c.y == v.getPlaats().y) {
+                            if (c.getX() > v.getPlaats().getX() -2 && c.getX() < v.getPlaats().getX() +2 && c.getY() > v.getPlaats().getY() -2 && c.getY() < v.getPlaats().getY() +2) {
                                 if (l.getLandnummer() == i) {
+                                    g = l.getGrondstof();
+                                    setGrondstof(g, 1);
                                 }
                             }
                         }
                     
                 }
-            }
         }
     }
 
