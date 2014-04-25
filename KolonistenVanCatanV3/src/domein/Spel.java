@@ -90,9 +90,8 @@ public class Spel implements Serializable {
     public Iterator getSpelers() {
         return this.spelers.iterator();
     }
-    
-    public void setLobby(ILobby l)
-    {
+
+    public void setLobby(ILobby l) {
         this.lobby = l;
     }
 
@@ -106,39 +105,36 @@ public class Spel implements Serializable {
             if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
                 for (Coordinate p : controleerBeschikbaarheidVestiging(true)) {
                     mogelijkePlaatsen.add(p);
-
-                    Coordinate dorpPlek = mogelijkePlaatsen.get(r.nextInt(mogelijkePlaatsen.size()));
-                    Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
-                    speler.setDorp(v);
-                    gui.setDorp(v);
-
-                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-
-                    speler.setGrondstof(Grondstof.HOUT, -1);
-                    speler.setGrondstof(Grondstof.GRAAN, -1);
-                    speler.setGrondstof(Grondstof.BAKSTEEN, -1);
-                    speler.setGrondstof(Grondstof.WOL, -1);
-
                 }
+                Coordinate dorpPlek = mogelijkePlaatsen.get(r.nextInt(mogelijkePlaatsen.size()));
+                Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
+                speler.setDorp(v);
+                gui.setDorp(v);
+
+                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+
+                speler.setGrondstof(Grondstof.HOUT, -1);
+                speler.setGrondstof(Grondstof.GRAAN, -1);
+                speler.setGrondstof(Grondstof.BAKSTEEN, -1);
+                speler.setGrondstof(Grondstof.WOL, -1);
             } else {
             }
         } else {
             if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
                 for (Coordinate p : controleerBeschikbaarheidVestiging(true)) {
                     mogelijkePlaatsen.add(p);
-
-                    Coordinate dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
-                    Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
-                    speler.setDorp(v);
-                    gui.setDorp(v);
-
-                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                    speler.setGrondstof(Grondstof.HOUT, -1);
-                    speler.setGrondstof(Grondstof.GRAAN, -1);
-                    speler.setGrondstof(Grondstof.BAKSTEEN, -1);
-                    speler.setGrondstof(Grondstof.WOL, -1);
-
                 }
+
+                Coordinate dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
+                Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
+                speler.setDorp(v);
+                gui.setDorp(v);
+
+                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                speler.setGrondstof(Grondstof.HOUT, -1);
+                speler.setGrondstof(Grondstof.GRAAN, -1);
+                speler.setGrondstof(Grondstof.BAKSTEEN, -1);
+                speler.setGrondstof(Grondstof.WOL, -1);
             } else {
             }
 
@@ -457,8 +453,8 @@ public class Spel implements Serializable {
     public Speler getActiveSpeler() {
         return this.activeSpeler;
     }
-    
-    public Bord getBord(){
+
+    public Bord getBord() {
         return this.bord;
     }
 }
