@@ -11,6 +11,8 @@ import domein.ontwikkelingskaarten.Overwinningspuntkaart;
 import domein.ontwikkelingskaarten.Ridderkaart;
 import domein.ontwikkelingskaarten.Stratenbouwkaart;
 import domein.ontwikkelingskaarten.Uitvindingkaart;
+import domein.tegels.Haventegel;
+import domein.tegels.Landtegel;
 import domein.tegels.Tegel;
 import java.awt.Color;
 import java.io.Serializable;
@@ -181,14 +183,21 @@ public class Speler implements Serializable {
     }
 
     public void grondstofInnen(int i) {
-        for (Vesting v : Vestigingen) {
-            for (Tegel t : b.getAlleTegels()) {
-                for (Coordinate c : h.getVertices()) {
-                    if(c.x == v.getPlaats().x || c.y == v.getPlaats().y){
-                        if(1 ==3/* KIJKEN WELKE GRONDSTOF JE KRIJGT*/){
-                        //aantallenVanGrondstoffen.set(2, ridderkaarten);
+// IK HEB GEEN IDEE HOE IK TEGEL EN LANDTEGEL MOET 'KOPPELEN' WANT ALLEEN LANDTEGELS HEBBEN NUMMERS DIE JE KAN GOOIEN MAAR ER IS GEEN LIJST VAN LANDTEGELS VOLGENS MIJ
+        
+        Landtegel l = null;
+
+        for (Tegel te : b.getAlleTegels()) {
+            if (te instanceof Landtegel) {
+               
+                for (Vesting v : Vestigingen) {
+                        for (Coordinate c : h.getVertices()) {
+                            if (c.x == v.getPlaats().x || c.y == v.getPlaats().y) {
+                                if (l.getLandnummer() == i) {
                                 }
-                    }
+                            }
+                        }
+                    
                 }
             }
         }
