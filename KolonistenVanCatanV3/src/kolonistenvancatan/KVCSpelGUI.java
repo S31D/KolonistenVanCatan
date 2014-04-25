@@ -1,5 +1,6 @@
 package kolonistenvancatan;
 
+import domein.Bord;
 import domein.Coordinate;
 import domein.Grondstof;
 import domein.Kleur;
@@ -7,8 +8,11 @@ import domein.Spel;
 import domein.Speler;
 import domein.Straat;
 import domein.Vesting;
-import domein.ontwikkelingskaarten.IOntwikkelingskaart;
+import domein.tegels.Haventegel;
+import domein.tegels.Landtegel;
 import domein.tegels.Tegel;
+import domein.tegels.Woestijntegel;
+import domein.tegels.Zeetegel;
 import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -30,6 +34,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import java.awt.Color;
+import java.io.IOException;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -49,6 +58,7 @@ public class KVCSpelGUI extends Application {
     //Spel
     private Spel spel;
     private Speler GUISpeler;
+    private Bord bord;
 
     //Canvas
     private Canvas catan;
@@ -60,12 +70,12 @@ public class KVCSpelGUI extends Application {
     //<editor-fold defaultstate="collapsed" desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Teken op Canvas">
     private void drawBord() {
-        /*
+        
          // Graphics
          gc = catan.getGraphicsContext2D();
          Image imageTegel = null;
          Image imageNummer = null;
-         spel.getBord().getAlleTegels();
+         //spel.getBord().getAlleTegels();
         
          //voor elke tegel
          for (Tegel t : spel.getBord().getAlleTegels()) {
@@ -135,17 +145,17 @@ public class KVCSpelGUI extends Application {
          gc.drawImage(imageTegel, 0, 0);
          }
          }
-         */
     }
 
     //</editor-fold>
-    //Dorp bouwen
+    //<editor-fold defaultstate="collapsed" desc="Dorpen Bouwen">
     public Coordinate keuzePlaatsDorp(ArrayList<Coordinate> mogelijkheden) {
         Coordinate returner;
         returner = mogelijkheden.get(0);
 
         return returner;
     }
+    //</editor-fold>
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Scene Build">
@@ -242,24 +252,14 @@ public class KVCSpelGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Start">
     public void start(Spel spel, Speler speler) {
-        Stage stage = new Stage();
         this.spel = spel;
         this.GUISpeler = speler;
-        BorderPane borderPane = new BorderPane();
-        //borderPane.setLeft(tegenspelers());
-        borderPane.setCenter(Canvas());
-        //borderPane.setBottom(ActieveGuiSpeler(new Speler("Thomas")));
-        //borderPane.setRight(tegenspeler(new Speler("Daan")));
-
-        StackPane root = new StackPane();
-        root.getChildren().add(borderPane);
-        root.getChildren().add(Chat());
-
-        Scene scene = new Scene(root, 300, 250);
-
-        stage.setTitle("Kolonisten Van Catan");
-        stage.setScene(scene);
-        stage.show();
+        Stage stage = new Stage();
+        try {
+            start(stage);
+        } catch (Exception ex) {
+            Logger.getLogger(KVCSpelGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     //</editor-fold>
 
@@ -314,10 +314,18 @@ public class KVCSpelGUI extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-       
+        BorderPane borderPane = new BorderPane();
+        GridPane gridPane = new GridPane();
+        catan = new Canvas(650,650);
+        drawBord();
+        gridPane.add(catan, 0, 0, 25, 25);
+        borderPane.getChildren().add(gridPane);
         primaryStage.setTitle("Kolonisten van catan");
         Parent root = FXMLLoader.load(getClass().getResource("KVCSpelGUI.fxml"));
-        Scene scene = new Scene(root);
+        StackPane roots = new StackPane();
+        roots.getChildren().add(borderPane);
+        roots.getChildren().add(root);
+        Scene scene = new Scene(roots);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -329,12 +337,13 @@ public class KVCSpelGUI extends Application {
     public ArrayList<Grondstof> getTweeSoortenGrondstoffen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
     }
-
-    public IOntwikkelingskaart getGekozenOntwikkelingskaartInzetten() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public IOntwikkelingskaart getGekozenOntwikkelingskaartKopen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public void testConnectie()
+    {
+        try {
+            spel.lobby.plaatsBericht("TEST", "TEST");
+        } catch (RemoteException ex) {
+            Logger.getLogger(KVCSpelGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

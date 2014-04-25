@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.awt.Color;
+import kolonistenvancatan.ILobby;
 import kolonistenvancatan.KVCSpelGUI;
 
 /**
@@ -41,6 +42,7 @@ public class Spel implements Serializable {
     private Speler activeSpeler;
     private KVCSpelGUI gui;
     private Bord b;
+    public ILobby lobby;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(naam)">
@@ -87,6 +89,11 @@ public class Spel implements Serializable {
 
     public Iterator getSpelers() {
         return this.spelers.iterator();
+    }
+    
+    public void setLobby(ILobby l)
+    {
+        this.lobby = l;
     }
 
     public boolean afstandsRegel(Coordinate plaats) {
@@ -449,5 +456,9 @@ public class Spel implements Serializable {
 
     public Speler getActiveSpeler() {
         return this.activeSpeler;
+    }
+    
+    public Bord getBord(){
+        return this.bord;
     }
 }

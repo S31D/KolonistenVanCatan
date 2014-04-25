@@ -38,15 +38,22 @@ import java.awt.Color;
  */
 public class LobbyController extends UnicastRemoteObject implements Initializable {
 
-    
-    @FXML ListView lvSpelers;
-    @FXML Button btLogin;
-    @FXML TextField tfSpelernaam;
-    @FXML TextArea taChat;
-    @FXML TextField taChatMessage;
-    @FXML ListView lvSpellen;
-    @FXML Button btHost;
-    @FXML Button btJoin;
+    @FXML
+    ListView lvSpelers;
+    @FXML
+    Button btLogin;
+    @FXML
+    TextField tfSpelernaam;
+    @FXML
+    TextArea taChat;
+    @FXML
+    TextField taChatMessage;
+    @FXML
+    ListView lvSpellen;
+    @FXML
+    Button btHost;
+    @FXML
+    Button btJoin;
     // Set flag locateRegistry when binding using registry
     // Reset flag locateRegistry when binding using Naming
     private static boolean locateRegistry = true;
@@ -60,7 +67,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     private int aantalSpellen = 0;
     String selectedGame = "";
     private String naam;
-    
+
     // Constructor
     //public LobbyController(String ipAddress, int portNumber) throws RemoteException {
     public LobbyController() throws RemoteException {
@@ -74,41 +81,34 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
             @Override
             public void run() {
-                        lvSpellen.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                lvSpellen.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
-            @Override
-            public void handle(MouseEvent t) {
-                try {
-                    selectedGame = (String) lvSpellen.getSelectionModel().getSelectedItem();
-                }
-                catch (NullPointerException e)
-                {
-                    if (selectedGame.length() > 0)
-                    {
-                        btJoin.setVisible(true);
+                    @Override
+                    public void handle(MouseEvent t) {
+                        try {
+                            selectedGame = (String) lvSpellen.getSelectionModel().getSelectedItem();
+                        } catch (NullPointerException e) {
+                            if (selectedGame.length() > 0) {
+                                btJoin.setVisible(true);
+                            } else {
+                                btJoin.setVisible(false);
+                            }
+                        } finally {
+                            if (selectedGame.length() > 0) {
+                                btJoin.setVisible(true);
+                            } else {
+                                btJoin.setVisible(false);
+                            }
+                        }
                     }
-                    else
-                    {
-                        btJoin.setVisible(false);
-                    }
-                }
-                finally
-                {
-                    if (selectedGame.length() > 0)
-                        btJoin.setVisible(true);
-                    else
-                        btJoin.setVisible(false);
-                }
+                });
             }
         });
-            }
-        });
-                t.schedule(new TimerTask() {
+        t.schedule(new TimerTask() {
             @Override
             public void run() {
                 try {
-                    if (lobby.getAantalSpelers() > aantalSpelers)
-                    {
+                    if (lobby.getAantalSpelers() > aantalSpelers) {
                         aantalSpelers = lobby.getAantalSpelers();
                         Platform.runLater(new Runnable() {
 
@@ -120,10 +120,9 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                                     Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             }
-                        });    
+                        });
                     }
-                    if (lobby.getAantalSpellen() > aantalSpellen)
-                    {
+                    if (lobby.getAantalSpellen() > aantalSpellen) {
                         aantalSpellen = lobby.getAantalSpellen();
                         Platform.runLater(new Runnable() {
 
@@ -143,7 +142,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                 }
             }
         }, 1000, 1000);
-        
+
         // Bind IEffectenbeurs
         if (locateRegistry) {
             // Locate registry at IP address and port number
@@ -257,11 +256,10 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
-    
-    public void login()
-    {
+
+    public void login() {
         try {
             lobby.addSpeler(tfSpelernaam.getText());
             naam = tfSpelernaam.getText();
@@ -273,41 +271,39 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
+        taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
-                if (ke.getCode().equals(KeyCode.ENTER))
-                try {
-                    lobby.plaatsBericht(taChatMessage.getText(),naam);
-                    taChatMessage.setText("");
-                } catch (RemoteException ex) {
-                    Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    try {
+                        lobby.plaatsBericht(taChatMessage.getText(), naam);
+                        taChatMessage.setText("");
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
     }
-    
-    public void hostGame()
-    {
+
+    public void hostGame() {
         try {
             Spel spel = lobby.addSpel(naam + "'s Game");
+            spel.setLobby(lobby);
             KVCSpelGUI kVCSpelGUI = new KVCSpelGUI();
             Speler speler = new Speler(naam, new Kleur(Color.RED));
             kVCSpelGUI.start(spel, speler);
+            SpelController.spel = spel;
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    public void joinGame()
-    {
+
+    public void joinGame() {
         try {
-            for (String s : lobby.getSpellen())
-            {
-                if (s.equals(selectedGame))
-                {
+            for (String s : lobby.getSpellen()) {
+                if (s.equals(selectedGame)) {
                     Spel spel = lobby.getSpel(selectedGame);
                     lobby.voegSpelerToeAanSpel(new Speler(naam, new Kleur(Color.CYAN)), s);
                     System.out.println("succes");
