@@ -11,6 +11,7 @@ import domein.ontwikkelingskaarten.Overwinningspuntkaart;
 import domein.ontwikkelingskaarten.Ridderkaart;
 import domein.ontwikkelingskaarten.Stratenbouwkaart;
 import domein.ontwikkelingskaarten.Uitvindingkaart;
+import domein.tegels.Tegel;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,9 +34,10 @@ public class Speler implements Serializable {
     private ArrayList<Vesting> Vestigingen;
     private ArrayList<Straat> Straten;
     private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
+    private Bord b;
+    private Hexagon h;
     private int gespeeldeRidderkaarten;
-    
-        Object[] monopoliekaarten = null;
+    Object[] monopoliekaarten = null;
     Object[] overwinningspuntenkaarten = null;
     Object[] ridderkaarten = null;
     Object[] stratenbouwkaarten = null;
@@ -49,7 +51,7 @@ public class Speler implements Serializable {
         this.Vestigingen = new ArrayList<>();
         this.Ontwikkelingskaarten = new ArrayList<>();
         this.aantallenVanOntwikkelingskaarten = new ArrayList<Object[]>();
-        
+
         monopoliekaarten = new Object[2];
         Monopoliekaart monopoliekaart = new Monopoliekaart();
         monopoliekaarten[0] = monopoliekaart;
@@ -70,8 +72,8 @@ public class Speler implements Serializable {
         Uitvindingkaart uitvindingkaart = new Uitvindingkaart();
         uitvindingkaarten[0] = uitvindingkaart;
         uitvindingkaarten[1] = 0;
-        
-        
+
+
     }
 
     //</editor-fold>
@@ -179,7 +181,17 @@ public class Speler implements Serializable {
     }
 
     public void grondstofInnen(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Vesting v : Vestigingen) {
+            for (Tegel t : b.getAlleTegels()) {
+                for (Coordinate c : h.getVertices()) {
+                    if(c.x == v.getPlaats().x || c.y == v.getPlaats().y){
+                        if(1 ==3/* KIJKEN WELKE GRONDSTOF JE KRIJGT*/){
+                        //aantallenVanGrondstoffen.set(2, ridderkaarten);
+                                }
+                    }
+                }
+            }
+        }
     }
 
     public ArrayList<IOntwikkelingskaart> getOntwikkelingskaarten() {
