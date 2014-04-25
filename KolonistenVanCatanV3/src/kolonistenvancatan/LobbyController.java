@@ -38,8 +38,7 @@ import java.awt.Color;
  */
 public class LobbyController extends UnicastRemoteObject implements Initializable {
 
-    @FXML
-    ListView lvSpelers;
+    @FXML ListView lvSpelers;
     @FXML
     Button btLogin;
     @FXML
