@@ -31,6 +31,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import java.awt.Color;
+import storage.Database;
 
 /**
  *
@@ -38,6 +39,8 @@ import java.awt.Color;
  */
 public class LobbyController extends UnicastRemoteObject implements Initializable {
 
+    Database db = new Database();
+    
     @FXML ListView lvSpelers;
     @FXML
     Button btLogin;
@@ -53,6 +56,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     Button btHost;
     @FXML
     Button btJoin;
+    @FXML PasswordField pfWachtwoord;
+    @FXML Label lbOnjuist;
     // Set flag locateRegistry when binding using registry
     // Reset flag locateRegistry when binding using Naming
     private static boolean locateRegistry = true;
@@ -258,31 +263,85 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     }
 
-    public void login() {
+//    public void login() {
+//        try {
+//            lobby.addSpeler(tfSpelernaam.getText());
+//            naam = tfSpelernaam.getText();
+//            tfSpelernaam.setVisible(false);
+//            btLogin.setVisible(false);
+//            taChat.setVisible(true);
+//            taChatMessage.setVisible(true);
+//            btHost.setDisable(false);
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent ke) {
+//                if (ke.getCode().equals(KeyCode.ENTER)) {
+//                    try {
+//                        lobby.plaatsBericht(taChatMessage.getText(), naam);
+//                        taChatMessage.setText("");
+//                    } catch (RemoteException ex) {
+//                        Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            }
+//        });
+//    }
+    
+    public void login()
+    {
         try {
-            lobby.addSpeler(tfSpelernaam.getText());
-            naam = tfSpelernaam.getText();
-            tfSpelernaam.setVisible(false);
-            btLogin.setVisible(false);
-            taChat.setVisible(true);
-            taChatMessage.setVisible(true);
-            btHost.setDisable(false);
-        } catch (RemoteException ex) {
-            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent ke) {
-                if (ke.getCode().equals(KeyCode.ENTER)) {
+            if (db.Login(tfSpelernaam.getText()).equals(pfWachtwoord.getText())) {
+                
+                lobby.addSpeler(tfSpelernaam.getText());
+                naam = tfSpelernaam.getText();
+                tfSpelernaam.setVisible(false);
+                btLogin.setVisible(false);
+                taChat.setVisible(true);
+                taChatMessage.setVisible(true);
+                btHost.setDisable(false);
+                
+                taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>()
+                {
+                    @Override
+                    public void handle(KeyEvent ke) {
+                    if (ke.getCode().equals(KeyCode.ENTER))
                     try {
-                        lobby.plaatsBericht(taChatMessage.getText(), naam);
+                        lobby.plaatsBericht(taChatMessage.getText(),naam);
                         taChatMessage.setText("");
                     } catch (RemoteException ex) {
                         Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                });
+            } else {
+                tfSpelernaam.clear();
+                pfWachtwoord.clear();
+                lbOnjuist.setVisible(true);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER))
+                try {
+                    lobby.plaatsBericht(taChatMessage.getText(),naam);
+                    taChatMessage.setText("");
+                } catch (RemoteException ex) {
+                    Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
+    }
+    
+    public void Register() {
+        
     }
 
     public void hostGame() {

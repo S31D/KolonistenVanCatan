@@ -399,7 +399,7 @@ public class Spel implements Serializable {
                     break;
             }
         } else {
-            IOntwikkelingskaart gekozenkaart = gui.getGekozenOntwikkelingskaartInzetten();
+            IOntwikkelingskaart gekozenkaart = null;
             switch (gekozenkaart.getNaam()) {
                 case "Monopoliekaart":
                     Monopoliekaart mo = new Monopoliekaart();
