@@ -7,7 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="858.0" prefWidth="1198.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="kolonistenvancatan.KVCSpelGUI">
+<AnchorPane id="AnchorPane" prefHeight="858.0" prefWidth="1198.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="kolonistenvancatan.SpelController">
   <children>
     <AnchorPane layoutX="870.0" layoutY="20.0" prefHeight="306.0" prefWidth="302.0">
       <children>

@@ -56,7 +56,7 @@ public class KVCSpelGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     //Spel
-    private Spel spel = new Spel("gio");
+    private Spel spel;
     private Speler GUISpeler;
     private Bord bord;
 
@@ -148,13 +148,14 @@ public class KVCSpelGUI extends Application {
     }
 
     //</editor-fold>
-    //Dorp bouwen
+    //<editor-fold defaultstate="collapsed" desc="Dorpen Bouwen">
     public Coordinate keuzePlaatsDorp(ArrayList<Coordinate> mogelijkheden) {
         Coordinate returner;
         returner = mogelijkheden.get(0);
 
         return returner;
     }
+    //</editor-fold>
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Scene Build">
@@ -251,20 +252,14 @@ public class KVCSpelGUI extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Start">
     public void start(Spel spel, Speler speler) {
-        Stage stage = new Stage();
         this.spel = spel;
         this.GUISpeler = speler;
-        Parent root = null;
-               
+        Stage stage = new Stage();
         try {
-            root = FXMLLoader.load(getClass().getResource("KVCSpelGUI.fxml"));
-        } catch (IOException ex) {
+            start(stage);
+        } catch (Exception ex) {
             Logger.getLogger(KVCSpelGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
     //</editor-fold>
 
