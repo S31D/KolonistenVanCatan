@@ -8,6 +8,7 @@ import domein.Spel;
 import domein.Speler;
 import domein.Straat;
 import domein.Vesting;
+import domein.ontwikkelingskaarten.IOntwikkelingskaart;
 import domein.tegels.Haventegel;
 import domein.tegels.Landtegel;
 import domein.tegels.Tegel;
@@ -345,5 +346,13 @@ public class KVCSpelGUI extends Application {
         } catch (RemoteException ex) {
             Logger.getLogger(KVCSpelGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public IOntwikkelingskaart getGekozenOntwikkelingskaartKopen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public IOntwikkelingskaart getGekozenOntwikkelingskaartInzetten() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
