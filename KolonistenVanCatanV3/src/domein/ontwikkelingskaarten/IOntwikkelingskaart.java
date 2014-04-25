@@ -1,5 +1,8 @@
 package domein.ontwikkelingskaarten;
 
+import java.io.Serializable;
+
+
 /**
  * In this class you can find all properties and operations for
  * IOntwikkelingskaart.
@@ -9,7 +12,7 @@ package domein.ontwikkelingskaarten;
  * @author Anne Toonen
  * @date 23-3-2014
  */
-public interface IOntwikkelingskaart {
+public interface IOntwikkelingskaart extends Serializable{
 
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="actie">
