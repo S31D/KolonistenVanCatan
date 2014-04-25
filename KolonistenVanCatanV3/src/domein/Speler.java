@@ -11,6 +11,9 @@ import domein.ontwikkelingskaarten.Overwinningspuntkaart;
 import domein.ontwikkelingskaarten.Ridderkaart;
 import domein.ontwikkelingskaarten.Stratenbouwkaart;
 import domein.ontwikkelingskaarten.Uitvindingkaart;
+import domein.tegels.Haventegel;
+import domein.tegels.Landtegel;
+import domein.tegels.Tegel;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,9 +36,10 @@ public class Speler implements Serializable {
     private ArrayList<Vesting> Vestigingen;
     private ArrayList<Straat> Straten;
     private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
+    private Bord b;
+    private Hexagon h;
     private int gespeeldeRidderkaarten;
-    
-        Object[] monopoliekaarten = null;
+    Object[] monopoliekaarten = null;
     Object[] overwinningspuntenkaarten = null;
     Object[] ridderkaarten = null;
     Object[] stratenbouwkaarten = null;
@@ -49,7 +53,7 @@ public class Speler implements Serializable {
         this.Vestigingen = new ArrayList<>();
         this.Ontwikkelingskaarten = new ArrayList<>();
         this.aantallenVanOntwikkelingskaarten = new ArrayList<Object[]>();
-        
+
         monopoliekaarten = new Object[2];
         Monopoliekaart monopoliekaart = new Monopoliekaart();
         monopoliekaarten[0] = monopoliekaart;
@@ -70,8 +74,8 @@ public class Speler implements Serializable {
         Uitvindingkaart uitvindingkaart = new Uitvindingkaart();
         uitvindingkaarten[0] = uitvindingkaart;
         uitvindingkaarten[1] = 0;
-        
-        
+
+
     }
 
     //</editor-fold>
@@ -179,7 +183,24 @@ public class Speler implements Serializable {
     }
 
     public void grondstofInnen(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+// IK HEB GEEN IDEE HOE IK TEGEL EN LANDTEGEL MOET 'KOPPELEN' WANT ALLEEN LANDTEGELS HEBBEN NUMMERS DIE JE KAN GOOIEN MAAR ER IS GEEN LIJST VAN LANDTEGELS VOLGENS MIJ
+        
+        Landtegel l = null;
+        Grondstof g = null;
+
+        for (Tegel te : b.getTegels("LandTegel")) {
+                for (Vesting v : Vestigingen) {
+                        for (Coordinate c : h.getVertices()) {
+                            if (c.getX() > v.getPlaats().getX() -2 && c.getX() < v.getPlaats().getX() +2 && c.getY() > v.getPlaats().getY() -2 && c.getY() < v.getPlaats().getY() +2) {
+                                if (l.getLandnummer() == i) {
+                                    g = l.getGrondstof();
+                                    setGrondstof(g, 1);
+                                }
+                            }
+                        }
+                    
+                }
+        }
     }
 
     public ArrayList<IOntwikkelingskaart> getOntwikkelingskaarten() {
