@@ -30,6 +30,7 @@ public class Spel implements Serializable {
     //nodig bij spel constructor
     private final String naam;
     private final ArrayList<Speler> spelers;
+    private ArrayList<Object[]> aantallenVanOntwikkelingskaarten;
     Random r;
     //Speelstukken
     private Speler langsteHandelsroute;
@@ -50,6 +51,27 @@ public class Spel implements Serializable {
     public Spel(String naam) {
         this.naam = naam;
         this.spelers = new ArrayList<>();
+        Object[] monopoliekaarten = new Object[1];
+        monopoliekaarten[0] = "Monopoliekaart";
+        monopoliekaarten[1] = 2;
+        Object[] overwinningsPuntenkaarten = new Object[1];
+        overwinningsPuntenkaarten[0] = "Overwinningspuntenkaart";
+        overwinningsPuntenkaarten[1] = 5;
+        Object[] ridderkaarten = new Object[1];
+        ridderkaarten[0] = "Ridderkaart";
+        ridderkaarten[1] = 14;
+        Object[] stratenbouwkaarten = new Object[1];
+        stratenbouwkaarten[0] = "Stratenbouwkaart";
+        stratenbouwkaarten[1] = 2;
+        Object[] uitvindingkaarten = new Object[1];
+        uitvindingkaarten[0] = "Uitvindingkaart";
+        uitvindingkaarten[1] = 2;
+        aantallenVanOntwikkelingskaarten.add(monopoliekaarten);
+        aantallenVanOntwikkelingskaarten.add(overwinningsPuntenkaarten);
+        aantallenVanOntwikkelingskaarten.add(ridderkaarten);
+        aantallenVanOntwikkelingskaarten.add(stratenbouwkaarten);
+        aantallenVanOntwikkelingskaarten.add(uitvindingkaarten);
+
         r = new Random();
         //TODO
         //this.Ontwikkelingskaarten = addOntwikkelingskaarten();
@@ -73,26 +95,7 @@ public class Spel implements Serializable {
 
     public void dorpBouwen(Speler speler) {
         ArrayList<Coordinate> mogelijkePlaatsen = new ArrayList<Coordinate>();
-        if (speler == this.activeSpeler) {
-            if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
-                for (Coordinate p : controleerBeschikbaarheidVestiging(true)) {
-                    mogelijkePlaatsen.add(p);
-
-                    Coordinate dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
-                    Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
-                    speler.setDorp(v);
-                    gui.setDorp(v);
-
-                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
-                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.GRAAN) - 1);
-                    speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
-                    speler.setGrondstof(Grondstof.WOL, speler.aantalGrondstoffen(Grondstof.WOL) - 1);
-
-                }
-            } else {
-            }
-        } else {
+        if (speler instanceof Bot) {
             if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
                 for (Coordinate p : controleerBeschikbaarheidVestiging(true)) {
                     mogelijkePlaatsen.add(p);
@@ -103,10 +106,30 @@ public class Spel implements Serializable {
                     gui.setDorp(v);
 
                     speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
-                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.GRAAN) - 1);
-                    speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
-                    speler.setGrondstof(Grondstof.WOL, speler.aantalGrondstoffen(Grondstof.WOL) - 1);
+
+                    speler.setGrondstof(Grondstof.HOUT, -1);
+                    speler.setGrondstof(Grondstof.GRAAN, -1);
+                    speler.setGrondstof(Grondstof.BAKSTEEN, -1);
+                    speler.setGrondstof(Grondstof.WOL, -1);
+
+                }
+            } else {
+            }
+        } else {
+            if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.WOL, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
+                for (Coordinate p : controleerBeschikbaarheidVestiging(true)) {
+                    mogelijkePlaatsen.add(p);
+
+                    Coordinate dorpPlek = gui.keuzePlaatsDorp(mogelijkePlaatsen);
+                    Vesting v = new Vesting(dorpPlek, speler.getKleur(), false);
+                    speler.setDorp(v);
+                    gui.setDorp(v);
+
+                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                    speler.setGrondstof(Grondstof.HOUT, -1);
+                    speler.setGrondstof(Grondstof.GRAAN, -1);
+                    speler.setGrondstof(Grondstof.BAKSTEEN, -1);
+                    speler.setGrondstof(Grondstof.WOL, -1);
 
                 }
             } else {
@@ -121,32 +144,30 @@ public class Spel implements Serializable {
             if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
                 for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
                     mogelijkeDorpen.add(p);
-
-                    Coordinate stadPlek = mogelijkeDorpen.get(r.nextInt(mogelijkeDorpen.size()));
-                    Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
-                    speler.setStad(v);
-                    gui.setStad(v);
-
-                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.GRAAN) - 2);
-                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.ERTS) - 3);
                 }
+                Coordinate stadPlek = mogelijkeDorpen.get(r.nextInt(mogelijkeDorpen.size()));
+                Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
+                speler.setStad(v);
+                gui.setStad(v);
+
+                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                speler.setGrondstof(Grondstof.HOUT, -2);
+                speler.setGrondstof(Grondstof.GRAAN, -3);
             } else {
             }
         } else {
             if (speler.voorraadToereikend(Grondstof.GRAAN, 2) && speler.voorraadToereikend(Grondstof.ERTS, 3)) {
                 for (Coordinate p : controleerBeschikbaarheidVestiging(false)) {
                     mogelijkeDorpen.add(p);
-
-                    Coordinate stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
-                    Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
-                    speler.setStad(v);
-                    gui.setStad(v);
-
-                    speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
-                    speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.GRAAN) - 2);
-                    speler.setGrondstof(Grondstof.GRAAN, speler.aantalGrondstoffen(Grondstof.ERTS) - 3);
                 }
+                Coordinate stadPlek = gui.keuzePlaatsDorp(mogelijkeDorpen);
+                Vesting v = new Vesting(stadPlek, speler.getKleur(), false);
+                speler.setStad(v);
+                gui.setStad(v);
+
+                speler.setOverwinningspunten(speler.getOverwinningspunten() + 1);
+                speler.setGrondstof(Grondstof.HOUT, -2);
+                speler.setGrondstof(Grondstof.GRAAN, -3);
             } else {
             }
         }
@@ -159,8 +180,8 @@ public class Spel implements Serializable {
                 Straat s = straten.get(r.nextInt(straten.size()));
                 speler.setStraat(s);
                 gui.setStraat(s);
-                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
-                speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
+                speler.setGrondstof(Grondstof.HOUT, -1);
+                speler.setGrondstof(Grondstof.BAKSTEEN, -1);
             }
         } else {
             if (speler.voorraadToereikend(Grondstof.HOUT, 1) && speler.voorraadToereikend(Grondstof.BAKSTEEN, 1)) {
@@ -168,50 +189,35 @@ public class Spel implements Serializable {
                 Straat s = gui.getStraat(straten, speler.getKleur());
                 speler.setStraat(s);
                 gui.setStraat(s);
-                speler.setGrondstof(Grondstof.HOUT, speler.aantalGrondstoffen(Grondstof.HOUT) - 1);
-                speler.setGrondstof(Grondstof.BAKSTEEN, speler.aantalGrondstoffen(Grondstof.BAKSTEEN) - 1);
+                speler.setGrondstof(Grondstof.HOUT, -1);
+                speler.setGrondstof(Grondstof.BAKSTEEN, -1);
             }
         }
     }
 
-    public void straatBouwenKaart(Speler speler) {
-        Straat s = null;
-        ArrayList<Straat> straten = this.controleerBeschikbaarheidStraat();
-
-        if (activeSpeler instanceof Bot) {
-            s = straten.get(r.nextInt(straten.size()));
-        } else {
-            s = gui.getStraat(straten, speler.getKleur());
-        }
-        speler.setStraat(s);
-        gui.setStraat(s);
-    }
-
     public boolean Handelen(Speler speler, ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
-        /*
-         ArrayList<Speler> spelersRuilen = new ArrayList<Speler>();
 
-         for (Speler s : spelers) {
-         if (gui.wilHandellen(grondstoffenWillen, grondstoffenGeven)) {
-         spelersRuilen.add(s);
-         }
-         }
-         if (spelersRuilen.isEmpty()) {
-         return false;
-         } else {
-         Speler sp = gui.willenHandelen(spelersRuilen);
-            
-         speler.setGrondstof(grondstofWillen[0], grondstofWillen[1]);
-         speler.setGrondstof(grondstofGeven[0], (grondstofGeven[1] * -1));
+        ArrayList<Speler> spelersRuilen = new ArrayList<Speler>();
 
-         sp.setGrondstof(grondstofWillen[0], (grondstofWillen[1] * -1));
-         sp.setGrondstof(grondstoffenGeven[0], grondstoffenGeven[1]);
-                    
-           
-         return true;
-         }
-         */
-        return true;
+        for (Speler s : spelers) {
+            if (gui.wilHandellen(grondstoffenWillen, grondstoffenGeven)) {
+                spelersRuilen.add(s);
+            }
+        }
+        if (spelersRuilen.isEmpty()) {
+            return false;
+        } else {
+            Speler sp = gui.willenHandelen(spelersRuilen);
+
+            speler.setGrondstof((Grondstof) grondstoffenWillen.get(0)[0], (int) grondstoffenWillen.get(1)[1]);
+            speler.setGrondstof((Grondstof) grondstoffenGeven.get(0)[0], ((int) grondstoffenGeven.get(0)[0] * -1));
+
+            sp.setGrondstof((Grondstof) grondstoffenWillen.get(0)[0], ((int) grondstoffenWillen.get(0)[1] * -1));
+            sp.setGrondstof((Grondstof) grondstoffenGeven.get(0)[0], (int) grondstoffenGeven.get(0)[1]);
+
+
+            return true;
+        }
     }
 
     public void HandelenBank(Speler speler, ArrayList<Object[]> grondstoffenWillen, ArrayList<Object[]> grondstoffenGeven) {
@@ -322,7 +328,7 @@ public class Spel implements Serializable {
         return vrijePlekken;
     }
 
-    private ArrayList<Straat> controleerBeschikbaarheidStraat() {
+    public ArrayList<Straat> controleerBeschikbaarheidStraat() {
         ArrayList<Coordinate[]> paden = bord.getPaden();
         ArrayList<Straat> vrijePaden = new ArrayList<Straat>();
         for (Speler speler : this.spelers) {
@@ -347,31 +353,93 @@ public class Spel implements Serializable {
     }
 
     public void ontwikkelingskaartInzetten() {
+        ArrayList<IOntwikkelingskaart> alleKaarten = null;
         if (activeSpeler instanceof Bot) {
-            ArrayList<IOntwikkelingskaart> alleKaarten = activeSpeler.getOntwikkelingskaarten();
+            alleKaarten = activeSpeler.getOntwikkelingskaarten();
             IOntwikkelingskaart randomKaart = alleKaarten.get(r.nextInt(alleKaarten.size()));
-            if (randomKaart.getNaam() == "Monopoliekaart") {
-                Monopoliekaart mo = new Monopoliekaart();
-                mo.actie();
-            } else if (randomKaart.getNaam() == "Overwinningspuntkaart") {
-                Overwinningspuntkaart ov = new Overwinningspuntkaart();
-                ov.actie();
-            } else if (randomKaart.getNaam() == "Ridderkaart") {
-                Ridderkaart ri = new Ridderkaart();
-                ri.actie();
-            } else if (randomKaart.getNaam() == "Stratenbouwkaart") {
-                Stratenbouwkaart st = new Stratenbouwkaart();
-                st.actie();
-            } else if (randomKaart.getNaam() == "Uitvindingkaart") {
-                Uitvindingkaart ui = new Uitvindingkaart();
-                ui.actie();
+            switch (randomKaart.getNaam()) {
+                case "Monopoliekaart":
+                    Monopoliekaart mo = new Monopoliekaart();
+                    mo.actie();
+                    activeSpeler.removeOntwikkelingskaart(mo);
+                    break;
+                case "Overwinningspuntkaart":
+                    Overwinningspuntkaart ov = new Overwinningspuntkaart();
+                    ov.actie();
+                    activeSpeler.removeOntwikkelingskaart(ov);
+                    break;
+                case "Ridderkaart":
+                    Ridderkaart ri = new Ridderkaart();
+                    ri.actie();
+                    activeSpeler.removeOntwikkelingskaart(ri);
+                    break;
+                case "Stratenbouwkaart":
+                    Stratenbouwkaart st = new Stratenbouwkaart();
+                    st.actie();
+                    activeSpeler.removeOntwikkelingskaart(st);
+                    break;
+                case "Uitvindingkaart":
+                    Uitvindingkaart ui = new Uitvindingkaart();
+                    ui.actie();
+                    activeSpeler.removeOntwikkelingskaart(ui);
+                    break;
             }
-
+        } else {
+            IOntwikkelingskaart gekozenkaart = gui.getGekozenOntwikkelingskaartInzetten();
+            switch (gekozenkaart.getNaam()) {
+                case "Monopoliekaart":
+                    Monopoliekaart mo = new Monopoliekaart();
+                    mo.actie();
+                    activeSpeler.removeOntwikkelingskaart(mo);
+                    break;
+                case "Overwinningspuntkaart":
+                    Overwinningspuntkaart ov = new Overwinningspuntkaart();
+                    ov.actie();
+                    activeSpeler.removeOntwikkelingskaart(ov);
+                    break;
+                case "Ridderkaart":
+                    Ridderkaart ri = new Ridderkaart();
+                    ri.actie();
+                    activeSpeler.removeOntwikkelingskaart(ri);
+                    break;
+                case "Stratenbouwkaart":
+                    Stratenbouwkaart st = new Stratenbouwkaart();
+                    st.actie();
+                    activeSpeler.removeOntwikkelingskaart(st);
+                    break;
+                case "Uitvindingkaart":
+                    Uitvindingkaart ui = new Uitvindingkaart();
+                    ui.actie();
+                    activeSpeler.removeOntwikkelingskaart(ui);
+                    break;
+            }
         }
     }
 
     public IOntwikkelingskaart ontwikkelingskaartKopen() {
-        throw new UnsupportedOperationException();
+        IOntwikkelingskaart gekozenkaart = null;
+        if (activeSpeler instanceof Bot) {
+            ArrayList<IOntwikkelingskaart> alleSoortenOntwikkelingskaarten = new ArrayList<>();
+            Monopoliekaart mon = new Monopoliekaart();
+            Overwinningspuntkaart ove = new Overwinningspuntkaart();
+            Ridderkaart rid = new Ridderkaart();
+            Stratenbouwkaart str = new Stratenbouwkaart();
+            Uitvindingkaart uit = new Uitvindingkaart();
+
+            alleSoortenOntwikkelingskaarten.add(mon);
+            alleSoortenOntwikkelingskaarten.add(ove);
+            alleSoortenOntwikkelingskaarten.add(rid);
+            alleSoortenOntwikkelingskaarten.add(str);
+            alleSoortenOntwikkelingskaarten.add(uit);
+
+            gekozenkaart = alleSoortenOntwikkelingskaarten.get(r.nextInt(alleSoortenOntwikkelingskaarten.size()));
+
+        } else {
+            gekozenkaart = gui.getGekozenOntwikkelingskaartKopen();
+
+
+        }
+        return gekozenkaart;
     }
 
     private ArrayList<IOntwikkelingskaart> addOntwikkelingskaarten() {

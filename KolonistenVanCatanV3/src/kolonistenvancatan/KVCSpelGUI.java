@@ -7,6 +7,7 @@ import domein.Spel;
 import domein.Speler;
 import domein.Straat;
 import domein.Vesting;
+import domein.ontwikkelingskaarten.IOntwikkelingskaart;
 import domein.tegels.Tegel;
 import java.util.ArrayList;
 import javafx.application.Application;
@@ -327,5 +328,13 @@ public class KVCSpelGUI extends Application {
 
     public ArrayList<Grondstof> getTweeSoortenGrondstoffen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    }
+
+    public IOntwikkelingskaart getGekozenOntwikkelingskaartInzetten() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public IOntwikkelingskaart getGekozenOntwikkelingskaartKopen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
