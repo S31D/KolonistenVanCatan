@@ -6,6 +6,11 @@
 package domein;
 
 import domein.ontwikkelingskaarten.IOntwikkelingskaart;
+import domein.ontwikkelingskaarten.Monopoliekaart;
+import domein.ontwikkelingskaarten.Overwinningspuntkaart;
+import domein.ontwikkelingskaarten.Ridderkaart;
+import domein.ontwikkelingskaarten.Stratenbouwkaart;
+import domein.ontwikkelingskaarten.Uitvindingkaart;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,12 +27,19 @@ public class Speler implements Serializable {
 
     private final String gebruikersnaam;
     private ArrayList<Object[]> aantallenVanGrondstoffen;
+    private ArrayList<Object[]> aantallenVanOntwikkelingskaarten;
     private int overwinningspunten;
     private final Kleur kleur;
     private ArrayList<Vesting> Vestigingen;
     private ArrayList<Straat> Straten;
     private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
     private int gespeeldeRidderkaarten;
+    
+        Object[] monopoliekaarten = null;
+    Object[] overwinningspuntenkaarten = null;
+    Object[] ridderkaarten = null;
+    Object[] stratenbouwkaarten = null;
+    Object[] uitvindingkaarten = null;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
@@ -36,6 +48,30 @@ public class Speler implements Serializable {
         this.kleur = kleur;
         this.Vestigingen = new ArrayList<>();
         this.Ontwikkelingskaarten = new ArrayList<>();
+        this.aantallenVanOntwikkelingskaarten = new ArrayList<Object[]>();
+        
+        monopoliekaarten = new Object[2];
+        Monopoliekaart monopoliekaart = new Monopoliekaart();
+        monopoliekaarten[0] = monopoliekaart;
+        monopoliekaarten[1] = 0;
+        overwinningspuntenkaarten = new Object[2];
+        Overwinningspuntkaart overwinningspuntkaart = new Overwinningspuntkaart();
+        overwinningspuntenkaarten[0] = overwinningspuntkaart;
+        overwinningspuntenkaarten[1] = 0;
+        ridderkaarten = new Object[2];
+        Ridderkaart ridderkaart = new Ridderkaart();
+        ridderkaarten[0] = ridderkaart;
+        ridderkaarten[1] = 0;
+        stratenbouwkaarten = new Object[2];
+        Stratenbouwkaart stratenbouwkaart = new Stratenbouwkaart();
+        stratenbouwkaarten[0] = stratenbouwkaart;
+        stratenbouwkaarten[1] = 0;
+        uitvindingkaarten = new Object[2];
+        Uitvindingkaart uitvindingkaart = new Uitvindingkaart();
+        uitvindingkaarten[0] = uitvindingkaart;
+        uitvindingkaarten[1] = 0;
+        
+        
     }
 
     //</editor-fold>
@@ -43,40 +79,40 @@ public class Speler implements Serializable {
     public String getNaam() {
         return gebruikersnaam;
     }
-    
+
     public Kleur getKleur() {
         return kleur;
     }
-    
+
     public int getOverwinningspunten() {
         return this.overwinningspunten;
     }
-    
+
     public void setOverwinningspunten(int overwinningspunten) {
         this.overwinningspunten = overwinningspunten;
     }
-    
+
     public int getGespeeldeRidderkaarten() {
         return this.gespeeldeRidderkaarten;
     }
-    
+
     public void setGespeeldeRidderkaarten() {
         this.gespeeldeRidderkaarten = gespeeldeRidderkaarten + 1;
     }
-    
+
     public boolean voorraadToereikend(Grondstof grondstof, int aantal) {
         boolean toereikend = false;
         for (Object[] o : aantallenVanGrondstoffen) {
             Grondstof gs = (Grondstof) o[0];
             int i = (int) o[1];
             if (gs == grondstof && i >= aantal) {
-                
+
                 return true;
             }
         }
         return toereikend;
     }
-    
+
     public int aantalGrondstoffen(Grondstof grondstof) {
         for (Object[] o : aantallenVanGrondstoffen) {
             if (o[0] == grondstof) {
@@ -85,7 +121,7 @@ public class Speler implements Serializable {
         }
         return 0;
     }
-    
+
     public boolean moetGrondstoffenInleveren() {
         int aantal = 0;
         for (Object[] o : aantallenVanGrondstoffen) {
@@ -93,9 +129,9 @@ public class Speler implements Serializable {
                 aantal += (int) o[1];
             }
         }
-        return (aantal > 7);        
+        return (aantal > 7);
     }
-    
+
     public void setGrondstof(Grondstof grondstof, int aantal) {
         for (Object[] o : aantallenVanGrondstoffen) {
             if ((Grondstof) o[0] == grondstof) {
@@ -105,7 +141,7 @@ public class Speler implements Serializable {
             }
         }
     }
-    
+
     public void setDorp(Vesting v) {
         int count = 0;
         for (Vesting vesting : Vestigingen) {
@@ -114,10 +150,10 @@ public class Speler implements Serializable {
             }
         }
         if (count <= 4) {
-            Vestigingen.add(v);            
+            Vestigingen.add(v);
         }
     }
-    
+
     public void setStad(Vesting v) {
         int count = 0;
         for (Vesting vesting : Vestigingen) {
@@ -126,32 +162,92 @@ public class Speler implements Serializable {
             }
         }
         if (count <= 3) {
-            Vestigingen.add(v);            
+            Vestigingen.add(v);
         }
     }
-    
+
     public void setStraat(Straat s) {
         Straten.add(s);
     }
-    
+
     public ArrayList<Straat> getStraten() {
         return Straten;
     }
-    
+
     public ArrayList<Vesting> getVestigingen() {
         return this.Vestigingen;
     }
-    
-    void grondstofInnen(int i) {
+
+    public void grondstofInnen(int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public ArrayList<IOntwikkelingskaart> getOntwikkelingskaarten() {
         return this.Ontwikkelingskaarten;
     }
 
     public void addOntwikkelingskaarten(IOntwikkelingskaart ontwikkelingskaart) {
         Ontwikkelingskaarten.add(ontwikkelingskaart);
+
+        switch (ontwikkelingskaart.getNaam()) {
+            case "Monopoliekaart":
+                monopoliekaarten[0] = monopoliekaarten;
+                monopoliekaarten[1] = (int) monopoliekaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(0, monopoliekaarten);
+                break;
+            case "Overwinningspuntkaart":
+                overwinningspuntenkaarten[0] = overwinningspuntenkaarten;
+                overwinningspuntenkaarten[1] = (int) overwinningspuntenkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(1, overwinningspuntenkaarten);
+                break;
+            case "Ridderkaart":
+                ridderkaarten[0] = ridderkaarten;
+                ridderkaarten[1] = (int) ridderkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(2, ridderkaarten);
+                break;
+            case "Stratenbouwkaart":
+                stratenbouwkaarten[0] = stratenbouwkaarten;
+                stratenbouwkaarten[1] = (int) stratenbouwkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(3, stratenbouwkaarten);
+                break;
+            case "Uitvindingkaart":
+                uitvindingkaarten[0] = uitvindingkaarten;
+                uitvindingkaarten[1] = (int) uitvindingkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(4, uitvindingkaarten);
+                break;
+        }
+    }
+
+    public void verwijderOntwikkelingskaart(IOntwikkelingskaart ontwikkelingskaart) {
+        Ontwikkelingskaarten.remove(ontwikkelingskaart);
+
+        switch (ontwikkelingskaart.getNaam()) {
+            case "Monopoliekaart":
+                monopoliekaarten[0] = monopoliekaarten;
+                monopoliekaarten[1] = (int) monopoliekaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(0, monopoliekaarten);
+                break;
+            case "Overwinningspuntkaart":
+                overwinningspuntenkaarten[0] = overwinningspuntenkaarten;
+                overwinningspuntenkaarten[1] = (int) overwinningspuntenkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(1, overwinningspuntenkaarten);
+                break;
+            case "Ridderkaart":
+                ridderkaarten[0] = ridderkaarten;
+                ridderkaarten[1] = (int) ridderkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(2, ridderkaarten);
+                break;
+            case "Stratenbouwkaart":
+                stratenbouwkaarten[0] = stratenbouwkaarten;
+                stratenbouwkaarten[1] = (int) stratenbouwkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(3, stratenbouwkaarten);
+                break;
+            case "Uitvindingkaart":
+                uitvindingkaarten[0] = uitvindingkaarten;
+                uitvindingkaarten[1] = (int) uitvindingkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(4, uitvindingkaarten);
+                break;
+        }
     }
     //</editor-fold>
 }

@@ -95,7 +95,7 @@ public class Bot extends Speler {
     
     //<editor-fold defaultstate="collapsed" desc="ontwikkelingskaartKopen">
     public void ontwikkelingskaartKopen() {
-        spel.ontwikkelingskaartKopen();
+        spel.ontwikkelingskaartKopen(this);
     }
     //</editor-fold
     //</editor-fold>

@@ -5,9 +5,14 @@
  */
 package domein.ontwikkelingskaarten;
 
+import domein.Bot;
 import domein.Spel;
 import domein.Speler;
+import domein.Straat;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Random;
+import kolonistenvancatan.KVCSpelGUI;
 
 /**
  *
@@ -19,18 +24,32 @@ public class Stratenbouwkaart implements IOntwikkelingskaart {
     private String beschrijving;
     private Spel spel;
     private Speler speler;
+    private Random r;
+    private KVCSpelGUI gui;
 
     public void Stratenbouwkaart(String naam, String beschrijving) {
         naam = "Stratenbouw";
         beschrijving = "Bij het spelen van deze kaart mag je direct twee straten bouwen";
         this.naam = naam;
         this.beschrijving = beschrijving;
+        this.r = new Random();
     }
 
     @Override
     public void actie() {
-        spel.straatBouwenKaart(speler);
-        spel.straatBouwenKaart(speler);
+
+        for (int x = 0; x <= 1; x = x + 1) {
+            Straat s = null;
+            ArrayList<Straat> straten = spel.controleerBeschikbaarheidStraat();
+
+            if (spel.getActiveSpeler() instanceof Bot) {
+                s = straten.get(r.nextInt(straten.size()));
+            } else {
+                s = gui.getStraat(straten, speler.getKleur());
+            }
+            speler.setStraat(s);
+            gui.setStraat(s);
+        }
     }
 
     @Override
