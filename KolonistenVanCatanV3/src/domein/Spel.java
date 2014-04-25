@@ -43,6 +43,12 @@ public class Spel implements Serializable {
     private KVCSpelGUI gui;
     private Bord b;
     public ILobby lobby;
+    //IOntwikkelingskaarten
+    Object[] monopoliekaarten = null;
+    Object[] overwinningspuntenkaarten = null;
+    Object[] ridderkaarten = null;
+    Object[] stratenbouwkaarten = null;
+    Object[] uitvindingkaarten = null;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(naam)">
@@ -54,28 +60,28 @@ public class Spel implements Serializable {
         this.naam = naam;
         this.spelers = new ArrayList<>();
         this.aantallenVanOntwikkelingskaarten = new ArrayList<Object[]>();
-        Object[] monopoliekaarten = new Object[2];
+        monopoliekaarten = new Object[2];
         Monopoliekaart monopoliekaart = new Monopoliekaart();
         monopoliekaarten[0] = monopoliekaart;
         monopoliekaarten[1] = 2;
-        Object[] overwinningsPuntenkaarten = new Object[2];
+        overwinningspuntenkaarten = new Object[2];
         Overwinningspuntkaart overwinningspuntkaart = new Overwinningspuntkaart();
-        overwinningsPuntenkaarten[0] = overwinningspuntkaart;
-        overwinningsPuntenkaarten[1] = 5;
-        Object[] ridderkaarten = new Object[2];
+        overwinningspuntenkaarten[0] = overwinningspuntkaart;
+        overwinningspuntenkaarten[1] = 5;
+        ridderkaarten = new Object[2];
         Ridderkaart ridderkaart = new Ridderkaart();
         ridderkaarten[0] = ridderkaart;
         ridderkaarten[1] = 14;
-        Object[] stratenbouwkaarten = new Object[2];
+        stratenbouwkaarten = new Object[2];
         Stratenbouwkaart stratenbouwkaart = new Stratenbouwkaart();
         stratenbouwkaarten[0] = stratenbouwkaart;
         stratenbouwkaarten[1] = 2;
-        Object[] uitvindingkaarten = new Object[2];
+        uitvindingkaarten = new Object[2];
         Uitvindingkaart uitvindingkaart = new Uitvindingkaart();
         uitvindingkaarten[0] = uitvindingkaart;
         uitvindingkaarten[1] = 2;
         aantallenVanOntwikkelingskaarten.add(monopoliekaarten);
-        aantallenVanOntwikkelingskaarten.add(overwinningsPuntenkaarten);
+        aantallenVanOntwikkelingskaarten.add(overwinningspuntenkaarten);
         aantallenVanOntwikkelingskaarten.add(ridderkaarten);
         aantallenVanOntwikkelingskaarten.add(stratenbouwkaarten);
         aantallenVanOntwikkelingskaarten.add(uitvindingkaarten);
@@ -370,27 +376,27 @@ public class Spel implements Serializable {
                 case "Monopoliekaart":
                     Monopoliekaart mo = new Monopoliekaart();
                     mo.actie();
-                    activeSpeler.removeOntwikkelingskaart(mo);
+                    activeSpeler.verwijderOntwikkelingskaart(mo);
                     break;
                 case "Overwinningspuntkaart":
                     Overwinningspuntkaart ov = new Overwinningspuntkaart();
                     ov.actie();
-                    activeSpeler.removeOntwikkelingskaart(ov);
+                    activeSpeler.verwijderOntwikkelingskaart(ov);
                     break;
                 case "Ridderkaart":
                     Ridderkaart ri = new Ridderkaart();
                     ri.actie();
-                    activeSpeler.removeOntwikkelingskaart(ri);
+                    activeSpeler.verwijderOntwikkelingskaart(ri);
                     break;
                 case "Stratenbouwkaart":
                     Stratenbouwkaart st = new Stratenbouwkaart();
                     st.actie();
-                    activeSpeler.removeOntwikkelingskaart(st);
+                    activeSpeler.verwijderOntwikkelingskaart(st);
                     break;
                 case "Uitvindingkaart":
                     Uitvindingkaart ui = new Uitvindingkaart();
                     ui.actie();
-                    activeSpeler.removeOntwikkelingskaart(ui);
+                    activeSpeler.verwijderOntwikkelingskaart(ui);
                     break;
             }
         } else {
@@ -399,35 +405,35 @@ public class Spel implements Serializable {
                 case "Monopoliekaart":
                     Monopoliekaart mo = new Monopoliekaart();
                     mo.actie();
-                    activeSpeler.removeOntwikkelingskaart(mo);
+                    activeSpeler.verwijderOntwikkelingskaart(mo);
                     break;
                 case "Overwinningspuntkaart":
                     Overwinningspuntkaart ov = new Overwinningspuntkaart();
                     ov.actie();
-                    activeSpeler.removeOntwikkelingskaart(ov);
+                    activeSpeler.verwijderOntwikkelingskaart(ov);
                     break;
                 case "Ridderkaart":
                     Ridderkaart ri = new Ridderkaart();
                     ri.actie();
-                    activeSpeler.removeOntwikkelingskaart(ri);
+                    activeSpeler.verwijderOntwikkelingskaart(ri);
                     break;
                 case "Stratenbouwkaart":
                     Stratenbouwkaart st = new Stratenbouwkaart();
                     st.actie();
-                    activeSpeler.removeOntwikkelingskaart(st);
+                    activeSpeler.verwijderOntwikkelingskaart(st);
                     break;
                 case "Uitvindingkaart":
                     Uitvindingkaart ui = new Uitvindingkaart();
                     ui.actie();
-                    activeSpeler.removeOntwikkelingskaart(ui);
+                    activeSpeler.verwijderOntwikkelingskaart(ui);
                     break;
             }
         }
     }
 
-    public IOntwikkelingskaart ontwikkelingskaartKopen() {
+    public void ontwikkelingskaartKopen(Speler speler) {
         IOntwikkelingskaart gekozenkaart = null;
-        if (activeSpeler instanceof Bot) {
+        if (speler.voorraadToereikend(Grondstof.GRAAN, 1) && speler.voorraadToereikend(Grondstof.ERTS, 1) && speler.voorraadToereikend(Grondstof.WOL, 1)) {
             ArrayList<IOntwikkelingskaart> alleSoortenOntwikkelingskaarten = new ArrayList<>();
             Monopoliekaart mon = new Monopoliekaart();
             Overwinningspuntkaart ove = new Overwinningspuntkaart();
@@ -443,16 +449,65 @@ public class Spel implements Serializable {
 
             gekozenkaart = alleSoortenOntwikkelingskaarten.get(r.nextInt(alleSoortenOntwikkelingskaarten.size()));
 
-        } else {
-            gekozenkaart = gui.getGekozenOntwikkelingskaartKopen();
 
+            switch (gekozenkaart.getNaam()) {
+                case "Monopoliekaart":
+                    if ((int) monopoliekaarten[1] >= 1) {
+                        monopoliekaarten[0] = monopoliekaarten;
+                        monopoliekaarten[1] = (int) monopoliekaarten[1] - 1;
+                        aantallenVanOntwikkelingskaarten.set(0, monopoliekaarten);
+                        activeSpeler.addOntwikkelingskaarten(gekozenkaart);
+                        break;
+                    } else {
+                        ontwikkelingskaartKopen(speler);
+                    }
+                case "Overwinningspuntkaart":
+                    if ((int) overwinningspuntenkaarten[1] >= 1) {
 
+                        overwinningspuntenkaarten[0] = overwinningspuntenkaarten;
+                        overwinningspuntenkaarten[1] = (int) overwinningspuntenkaarten[1] - 1;
+                        aantallenVanOntwikkelingskaarten.set(1, overwinningspuntenkaarten);
+                        activeSpeler.addOntwikkelingskaarten(gekozenkaart);
+                        break;
+                    } else {
+                        ontwikkelingskaartKopen(speler);
+                    }
+                case "Ridderkaart":
+                    if ((int) ridderkaarten[1] >= 1) {
+                        ridderkaarten[0] = ridderkaarten;
+                        ridderkaarten[1] = (int) ridderkaarten[1] - 1;
+                        aantallenVanOntwikkelingskaarten.set(2, ridderkaarten);
+                        activeSpeler.addOntwikkelingskaarten(gekozenkaart);
+                        break;
+                    } else {
+                        ontwikkelingskaartKopen(speler);
+                    }
+                case "Stratenbouwkaart":
+                    if ((int) stratenbouwkaarten[1] >= 1) {
+                        stratenbouwkaarten[0] = stratenbouwkaarten;
+                        stratenbouwkaarten[1] = (int) stratenbouwkaarten[1] - 1;
+                        aantallenVanOntwikkelingskaarten.set(3, stratenbouwkaarten);
+                        activeSpeler.addOntwikkelingskaarten(gekozenkaart);
+                        break;
+                    } else {
+                        ontwikkelingskaartKopen(speler);
+                    }
+                case "Uitvindingkaart":
+                    if ((int) uitvindingkaarten[1] >= 1) {
+                        uitvindingkaarten[0] = uitvindingkaarten;
+                        uitvindingkaarten[1] = (int) uitvindingkaarten[1] - 1;
+                        aantallenVanOntwikkelingskaarten.set(4, uitvindingkaarten);
+                        activeSpeler.addOntwikkelingskaarten(gekozenkaart);
+                        break;
+                    } else {
+                        ontwikkelingskaartKopen(speler);
+                    }
+            }
+
+            speler.setGrondstof(Grondstof.GRAAN, 1);
+            speler.setGrondstof(Grondstof.ERTS, 1);
+            speler.setGrondstof(Grondstof.WOL, 1);
         }
-        return gekozenkaart;
-    }
-
-    private ArrayList<IOntwikkelingskaart> addOntwikkelingskaarten() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Speler getActiveSpeler() {

@@ -348,10 +348,6 @@ public class KVCSpelGUI extends Application {
         }
     }
 
-    public IOntwikkelingskaart getGekozenOntwikkelingskaartKopen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public IOntwikkelingskaart getGekozenOntwikkelingskaartInzetten() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

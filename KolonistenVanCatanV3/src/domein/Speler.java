@@ -6,6 +6,7 @@
 package domein;
 
 import domein.ontwikkelingskaarten.IOntwikkelingskaart;
+import domein.ontwikkelingskaarten.Monopoliekaart;
 import domein.ontwikkelingskaarten.Overwinningspuntkaart;
 import domein.ontwikkelingskaarten.Ridderkaart;
 import domein.ontwikkelingskaarten.Stratenbouwkaart;
@@ -33,6 +34,12 @@ public class Speler implements Serializable {
     private ArrayList<Straat> Straten;
     private ArrayList<IOntwikkelingskaart> Ontwikkelingskaarten;
     private int gespeeldeRidderkaarten;
+    
+        Object[] monopoliekaarten = null;
+    Object[] overwinningspuntenkaarten = null;
+    Object[] ridderkaarten = null;
+    Object[] stratenbouwkaarten = null;
+    Object[] uitvindingkaarten = null;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
@@ -42,6 +49,29 @@ public class Speler implements Serializable {
         this.Vestigingen = new ArrayList<>();
         this.Ontwikkelingskaarten = new ArrayList<>();
         this.aantallenVanOntwikkelingskaarten = new ArrayList<Object[]>();
+        
+        monopoliekaarten = new Object[2];
+        Monopoliekaart monopoliekaart = new Monopoliekaart();
+        monopoliekaarten[0] = monopoliekaart;
+        monopoliekaarten[1] = 0;
+        overwinningspuntenkaarten = new Object[2];
+        Overwinningspuntkaart overwinningspuntkaart = new Overwinningspuntkaart();
+        overwinningspuntenkaarten[0] = overwinningspuntkaart;
+        overwinningspuntenkaarten[1] = 0;
+        ridderkaarten = new Object[2];
+        Ridderkaart ridderkaart = new Ridderkaart();
+        ridderkaarten[0] = ridderkaart;
+        ridderkaarten[1] = 0;
+        stratenbouwkaarten = new Object[2];
+        Stratenbouwkaart stratenbouwkaart = new Stratenbouwkaart();
+        stratenbouwkaarten[0] = stratenbouwkaart;
+        stratenbouwkaarten[1] = 0;
+        uitvindingkaarten = new Object[2];
+        Uitvindingkaart uitvindingkaart = new Uitvindingkaart();
+        uitvindingkaarten[0] = uitvindingkaart;
+        uitvindingkaarten[1] = 0;
+        
+        
     }
 
     //</editor-fold>
@@ -161,64 +191,68 @@ public class Speler implements Serializable {
 
         switch (ontwikkelingskaart.getNaam()) {
             case "Monopoliekaart":
-                Object[] Monopoliekaart = new Object[1];
+                Object[] Monopoliekaart = new Object[2];
                 Monopoliekaart[0] = Monopoliekaart;
                 Monopoliekaart[1] = (int) Monopoliekaart[0] + 1;
-                aantallenVanOntwikkelingskaarten.add(Monopoliekaart);
+                aantallenVanOntwikkelingskaarten.set(0, Monopoliekaart);
                 break;
             case "Overwinningspuntkaart":
-                Object[] Overwinningspuntkaart = new Object[1];
+                Object[] Overwinningspuntkaart = new Object[2];
                 Overwinningspuntkaart[0] = Overwinningspuntkaart;
                 Overwinningspuntkaart[1] = (int) Overwinningspuntkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.add(Overwinningspuntkaart);
+                aantallenVanOntwikkelingskaarten.set(1, Overwinningspuntkaart);
+                break;
             case "Ridderkaart":
-                Object[] Ridderkaart = new Object[1];
+                Object[] Ridderkaart = new Object[2];
                 Ridderkaart[0] = Ridderkaart;
                 Ridderkaart[1] = (int) Ridderkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.add(Ridderkaart);
+                aantallenVanOntwikkelingskaarten.set(2, Ridderkaart);
+                break;
             case "Stratenbouwkaart":
-                Object[] Stratenbouwkaart = new Object[1];
+                Object[] Stratenbouwkaart = new Object[2];
                 Stratenbouwkaart[0] = Stratenbouwkaart;
                 Stratenbouwkaart[1] = (int) Stratenbouwkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.add(Stratenbouwkaart);
+                aantallenVanOntwikkelingskaarten.set(3, Stratenbouwkaart);
+                break;
             case "Uitvindingkaart":
-                Object[] Uitvindingkaart = new Object[1];
+                Object[] Uitvindingkaart = new Object[2];
                 Uitvindingkaart[0] = Uitvindingkaart;
                 Uitvindingkaart[1] = (int) Uitvindingkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.add(Uitvindingkaart);
+                aantallenVanOntwikkelingskaarten.set(4, Uitvindingkaart);
+                break;
         }
     }
 
-    public void removeOntwikkelingskaart(IOntwikkelingskaart ontwikkelingskaart) {
+    public void verwijderOntwikkelingskaart(IOntwikkelingskaart ontwikkelingskaart) {
         Ontwikkelingskaarten.remove(ontwikkelingskaart);
 
         switch (ontwikkelingskaart.getNaam()) {
             case "Monopoliekaart":
-                Object[] Monopoliekaart = new Object[1];
+                Object[] Monopoliekaart = new Object[2];
                 Monopoliekaart[0] = Monopoliekaart;
                 Monopoliekaart[1] = (int) Monopoliekaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.add(Monopoliekaart);
+                aantallenVanOntwikkelingskaarten.set(0, Monopoliekaart);
                 break;
             case "Overwinningspuntkaart":
-                Object[] Overwinningspuntkaart = new Object[1];
+                Object[] Overwinningspuntkaart = new Object[2];
                 Overwinningspuntkaart[0] = Overwinningspuntkaart;
                 Overwinningspuntkaart[1] = (int) Overwinningspuntkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.add(Overwinningspuntkaart);
+                aantallenVanOntwikkelingskaarten.set(1, Overwinningspuntkaart);
             case "Ridderkaart":
-                Object[] Ridderkaart = new Object[1];
+                Object[] Ridderkaart = new Object[2];
                 Ridderkaart[0] = Ridderkaart;
                 Ridderkaart[1] = (int) Ridderkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.add(Ridderkaart);
+                aantallenVanOntwikkelingskaarten.set(2, Ridderkaart);
             case "Stratenbouwkaart":
-                Object[] Stratenbouwkaart = new Object[1];
+                Object[] Stratenbouwkaart = new Object[2];
                 Stratenbouwkaart[0] = Stratenbouwkaart;
                 Stratenbouwkaart[1] = (int) Stratenbouwkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.add(Stratenbouwkaart);
+                aantallenVanOntwikkelingskaarten.set(3, Stratenbouwkaart);
             case "Uitvindingkaart":
-                Object[] Uitvindingkaart = new Object[1];
+                Object[] Uitvindingkaart = new Object[2];
                 Uitvindingkaart[0] = Uitvindingkaart;
                 Uitvindingkaart[1] = (int) Uitvindingkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.add(Uitvindingkaart);
+                aantallenVanOntwikkelingskaarten.set(4, Uitvindingkaart);
         }
     }
     //</editor-fold>
