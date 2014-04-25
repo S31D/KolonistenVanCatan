@@ -191,34 +191,29 @@ public class Speler implements Serializable {
 
         switch (ontwikkelingskaart.getNaam()) {
             case "Monopoliekaart":
-                Object[] Monopoliekaart = new Object[2];
-                Monopoliekaart[0] = Monopoliekaart;
-                Monopoliekaart[1] = (int) Monopoliekaart[0] + 1;
-                aantallenVanOntwikkelingskaarten.set(0, Monopoliekaart);
+                monopoliekaarten[0] = monopoliekaarten;
+                monopoliekaarten[1] = (int) monopoliekaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(0, monopoliekaarten);
                 break;
             case "Overwinningspuntkaart":
-                Object[] Overwinningspuntkaart = new Object[2];
-                Overwinningspuntkaart[0] = Overwinningspuntkaart;
-                Overwinningspuntkaart[1] = (int) Overwinningspuntkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.set(1, Overwinningspuntkaart);
+                overwinningspuntenkaarten[0] = overwinningspuntenkaarten;
+                overwinningspuntenkaarten[1] = (int) overwinningspuntenkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(1, overwinningspuntenkaarten);
                 break;
             case "Ridderkaart":
-                Object[] Ridderkaart = new Object[2];
-                Ridderkaart[0] = Ridderkaart;
-                Ridderkaart[1] = (int) Ridderkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.set(2, Ridderkaart);
+                ridderkaarten[0] = ridderkaarten;
+                ridderkaarten[1] = (int) ridderkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(2, ridderkaarten);
                 break;
             case "Stratenbouwkaart":
-                Object[] Stratenbouwkaart = new Object[2];
-                Stratenbouwkaart[0] = Stratenbouwkaart;
-                Stratenbouwkaart[1] = (int) Stratenbouwkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.set(3, Stratenbouwkaart);
+                stratenbouwkaarten[0] = stratenbouwkaarten;
+                stratenbouwkaarten[1] = (int) stratenbouwkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(3, stratenbouwkaarten);
                 break;
             case "Uitvindingkaart":
-                Object[] Uitvindingkaart = new Object[2];
-                Uitvindingkaart[0] = Uitvindingkaart;
-                Uitvindingkaart[1] = (int) Uitvindingkaart[1] + 1;
-                aantallenVanOntwikkelingskaarten.set(4, Uitvindingkaart);
+                uitvindingkaarten[0] = uitvindingkaarten;
+                uitvindingkaarten[1] = (int) uitvindingkaarten[1] + 1;
+                aantallenVanOntwikkelingskaarten.set(4, uitvindingkaarten);
                 break;
         }
     }
@@ -228,31 +223,30 @@ public class Speler implements Serializable {
 
         switch (ontwikkelingskaart.getNaam()) {
             case "Monopoliekaart":
-                Object[] Monopoliekaart = new Object[2];
-                Monopoliekaart[0] = Monopoliekaart;
-                Monopoliekaart[1] = (int) Monopoliekaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.set(0, Monopoliekaart);
+                monopoliekaarten[0] = monopoliekaarten;
+                monopoliekaarten[1] = (int) monopoliekaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(0, monopoliekaarten);
                 break;
             case "Overwinningspuntkaart":
-                Object[] Overwinningspuntkaart = new Object[2];
-                Overwinningspuntkaart[0] = Overwinningspuntkaart;
-                Overwinningspuntkaart[1] = (int) Overwinningspuntkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.set(1, Overwinningspuntkaart);
+                overwinningspuntenkaarten[0] = overwinningspuntenkaarten;
+                overwinningspuntenkaarten[1] = (int) overwinningspuntenkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(1, overwinningspuntenkaarten);
+                break;
             case "Ridderkaart":
-                Object[] Ridderkaart = new Object[2];
-                Ridderkaart[0] = Ridderkaart;
-                Ridderkaart[1] = (int) Ridderkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.set(2, Ridderkaart);
+                ridderkaarten[0] = ridderkaarten;
+                ridderkaarten[1] = (int) ridderkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(2, ridderkaarten);
+                break;
             case "Stratenbouwkaart":
-                Object[] Stratenbouwkaart = new Object[2];
-                Stratenbouwkaart[0] = Stratenbouwkaart;
-                Stratenbouwkaart[1] = (int) Stratenbouwkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.set(3, Stratenbouwkaart);
+                stratenbouwkaarten[0] = stratenbouwkaarten;
+                stratenbouwkaarten[1] = (int) stratenbouwkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(3, stratenbouwkaarten);
+                break;
             case "Uitvindingkaart":
-                Object[] Uitvindingkaart = new Object[2];
-                Uitvindingkaart[0] = Uitvindingkaart;
-                Uitvindingkaart[1] = (int) Uitvindingkaart[1] - 1;
-                aantallenVanOntwikkelingskaarten.set(4, Uitvindingkaart);
+                uitvindingkaarten[0] = uitvindingkaarten;
+                uitvindingkaarten[1] = (int) uitvindingkaarten[1] - 1;
+                aantallenVanOntwikkelingskaarten.set(4, uitvindingkaarten);
+                break;
         }
     }
     //</editor-fold>

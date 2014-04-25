@@ -381,8 +381,7 @@ public class Spel implements Serializable {
                 case "Overwinningspuntkaart":
                     Overwinningspuntkaart ov = new Overwinningspuntkaart();
                     ov.actie();
-                    activeSpeler.verwijderOntwikkelingskaart(ov);
-                    break;
+                     break;
                 case "Ridderkaart":
                     Ridderkaart ri = new Ridderkaart();
                     ri.actie();
@@ -410,7 +409,6 @@ public class Spel implements Serializable {
                 case "Overwinningspuntkaart":
                     Overwinningspuntkaart ov = new Overwinningspuntkaart();
                     ov.actie();
-                    activeSpeler.verwijderOntwikkelingskaart(ov);
                     break;
                 case "Ridderkaart":
                     Ridderkaart ri = new Ridderkaart();
