@@ -454,7 +454,6 @@ public class Spel implements Serializable {
     private ArrayList<IOntwikkelingskaart> addOntwikkelingskaarten() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    //</editor-fold>
 
     public Speler getActiveSpeler() {
         return this.activeSpeler;
@@ -463,4 +462,5 @@ public class Spel implements Serializable {
     public Bord getBord() {
         return this.bord;
     }
+    //</editor-fold>
 }
