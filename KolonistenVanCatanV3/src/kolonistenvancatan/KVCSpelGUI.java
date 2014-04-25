@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -73,6 +74,8 @@ public class KVCSpelGUI extends Application {
         
          // Graphics
          gc = catan.getGraphicsContext2D();
+         catan.setHeight(catan.getHeight() + 400);
+         catan.setWidth(catan.getWidth() + 400);
          Image imageTegel = null;
          Image imageNummer = null;
          //spel.getBord().getAlleTegels();
@@ -122,13 +125,15 @@ public class KVCSpelGUI extends Application {
          imageTegel = new Image("file:src/Images/Tegels/Haven_Hout_" + ht.getHavezijde() + ".png");
          break;
          case BAKSTEEN:
-         imageTegel = new Image("file:src/Images/Tegels/Haven_Wol_" + ht.getHavezijde() + ".png");
+         //imageTegel = new Image("file:src/Images/Tegels/Haven_Wol_" + ht.getHavezijde() + ".png");
+             imageTegel = new Image("file:src/Images/Tegels/Haven_Backsteen_" + ht.getHavezijde() + ".png");
          break;
          case GRAAN:
          imageTegel = new Image("file:src/Images/Tegels/Haven_Graan_" + ht.getHavezijde() + ".png");
          break;
          case WOL:
-         imageTegel = new Image("file:src/Images/Tegels/Haven_Backsteen_" + ht.getHavezijde() + ".png");
+         //imageTegel = new Image("file:src/Images/Tegels/Haven_Backsteen_" + ht.getHavezijde() + ".png");
+             imageTegel = new Image("file:src/Images/Tegels/Haven_Wol_" + ht.getHavezijde() + ".png");
          break;
          case ERTS:
          imageTegel = new Image("file:src/Images/Tegels/Haven_Erts_" + ht.getHavezijde() + ".png");
@@ -142,7 +147,7 @@ public class KVCSpelGUI extends Application {
 
          } else if (spel.getBord().isOptieRand()) {
          imageTegel = new Image("file:src/Images/Tegels/Rand.png");
-         gc.drawImage(imageTegel, 0, 0);
+         gc.drawImage(imageTegel, 297, 98);
          }
          }
     }

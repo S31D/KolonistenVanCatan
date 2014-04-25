@@ -57,7 +57,7 @@ public final class Bord implements Serializable {
         boolean exists;
 
         for (int ring = 1; ring <= 3; ring++) {
-            voorgaandeHexagon = new Hexagon(centerBord, hexRad);
+            voorgaandeHexagon = new Hexagon(new Coordinate(542, 302), hexRad);
             exists = false;
             for (Hexagon h : hexagons) {
                 if (h.getCenterPositie() == voorgaandeHexagon.getCenterPositie()) {
@@ -238,16 +238,18 @@ public final class Bord implements Serializable {
     }
 
     public void setTutorialbord() {
-        Hexagon h = new Hexagon(new Coordinate(327.5, 334), hexRad);
+        Hexagon h = new Hexagon(new Coordinate(570.5, 336), hexRad);
+        Hexagon h1 = new Hexagon(new Coordinate(379,304),hexRad);
         //tegels.add(new Woestijntegel(hexagons.get(0)));
         tegels.add(new Woestijntegel(h));
         tegels.add(new Landtegel(3, Grondstof.HOUT, hexagons.get(1)));
         tegels.add(new Landtegel(6, Grondstof.ERTS, hexagons.get(2)));
         tegels.add(new Landtegel(5, Grondstof.GRAAN, hexagons.get(3)));
         tegels.add(new Landtegel(4, Grondstof.ERTS, hexagons.get(4)));
-        tegels.add(new Landtegel(9, Grondstof.BAKSTEEN, hexagons.get(5)));
+        tegels.add(new Landtegel(9, Grondstof.BAKSTEEN, hexagons.get(5))); //X
         tegels.add(new Landtegel(11, Grondstof.ERTS, hexagons.get(6)));
-        tegels.add(new Landtegel(11, Grondstof.BAKSTEEN, hexagons.get(7)));
+        //tegels.add(new Landtegel(11, Grondstof.BAKSTEEN, hexagons.get(7))); //X VERZETTEN, KOMT OP CENTER?
+        tegels.add(new Landtegel(11, Grondstof.BAKSTEEN, h1));
         tegels.add(new Landtegel(12, Grondstof.WOL, hexagons.get(8)));
         tegels.add(new Landtegel(9, Grondstof.GRAAN, hexagons.get(9)));
         tegels.add(new Landtegel(10, Grondstof.HOUT, hexagons.get(10)));
@@ -257,10 +259,10 @@ public final class Bord implements Serializable {
         tegels.add(new Landtegel(2, Grondstof.GRAAN, hexagons.get(14)));
         tegels.add(new Landtegel(5, Grondstof.HOUT, hexagons.get(15)));
         tegels.add(new Landtegel(10, Grondstof.GRAAN, hexagons.get(16)));
-        tegels.add(new Landtegel(8, Grondstof.BAKSTEEN, hexagons.get(17)));
+        tegels.add(new Landtegel(8, Grondstof.BAKSTEEN, hexagons.get(17))); //X BOVENSTE WOL?
         tegels.add(new Landtegel(4, Grondstof.WOL, hexagons.get(18)));
         tegels.add(new Zeetegel(hexagons.get(19)));
-        tegels.add(new Haventegel(1, Grondstof.BAKSTEEN, 2, hexagons.get(20)));
+        tegels.add(new Haventegel(1, Grondstof.BAKSTEEN, 2, hexagons.get(20))); //X KOMT ERGENS ANDERS TE STAAN -> KWIJT
         tegels.add(new Zeetegel(hexagons.get(21)));
         tegels.add(new Haventegel(6, null, 3, hexagons.get(22)));
         tegels.add(new Zeetegel(hexagons.get(23)));
@@ -278,6 +280,7 @@ public final class Bord implements Serializable {
         tegels.add(new Zeetegel(hexagons.get(35)));
         tegels.add(new Haventegel(1, Grondstof.HOUT, 2, hexagons.get(36)));
         tegels.add(new Zeetegel(hexagons.get(37)));
+        
         for (Tegel t : tegels)
         {
             Coordinate hoek1 = t.getPlaats().getVertices()[0];

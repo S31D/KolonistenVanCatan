@@ -60,6 +60,6 @@
     <Button fx:id="btnHandelen" layoutX="12.0" layoutY="257.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" text="Handelen" />
     <Button id="btnHandelenBank" fx:id="btnHandelenbank" layoutX="13.0" layoutY="312.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" text="Handelen met bank" />
     <Button fx:id="btnBeurt" layoutX="13.0" layoutY="373.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" text="Eindig beurt" />
-    <Button layoutX="293.0" layoutY="70.0" mnemonicParsing="false" onAction="#testConnectie" text="Button" />
+    <Button layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#testConnectie" text="Button" />
   </children>
 </AnchorPane>
