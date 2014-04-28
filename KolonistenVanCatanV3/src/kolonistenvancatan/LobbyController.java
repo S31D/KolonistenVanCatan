@@ -44,6 +44,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     @FXML ListView lvSpelers;
     @FXML
     Button btLogin;
+    @FXML Label lbGebruikersnaam;
+    @FXML Label lbWachtwoord;
     @FXML
     TextField tfSpelernaam;
     @FXML
@@ -111,6 +113,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         t.schedule(new TimerTask() {
             @Override
             public void run() {
+                Platform.runLater(this);
                 try {
                     if (lobby.getAantalSpelers() > aantalSpelers) {
                         aantalSpelers = lobby.getAantalSpelers();
@@ -297,8 +300,12 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                 
                 lobby.addSpeler(tfSpelernaam.getText());
                 naam = tfSpelernaam.getText();
+                pfWachtwoord.setVisible(false);
                 tfSpelernaam.setVisible(false);
                 btLogin.setVisible(false);
+                lbGebruikersnaam.setVisible(false);
+                lbWachtwoord.setVisible(false);
+                lbOnjuist.setVisible(false);
                 taChat.setVisible(true);
                 taChatMessage.setVisible(true);
                 btHost.setDisable(false);
@@ -325,19 +332,19 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent ke) {
-                if (ke.getCode().equals(KeyCode.ENTER))
-                try {
-                    lobby.plaatsBericht(taChatMessage.getText(),naam);
-                    taChatMessage.setText("");
-                } catch (RemoteException ex) {
-                    Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+//        taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>()
+//        {
+//            @Override
+//            public void handle(KeyEvent ke) {
+//                if (ke.getCode().equals(KeyCode.ENTER))
+//                try {
+//                    lobby.plaatsBericht(taChatMessage.getText(),naam);
+//                    taChatMessage.setText("");
+//                } catch (RemoteException ex) {
+//                    Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
     }
     
     public void Register() {
