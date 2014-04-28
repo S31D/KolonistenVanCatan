@@ -30,7 +30,7 @@ public class Database {
     private ResultSet rs;
     
     private void initConnection() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "12345");  
+        conn = DriverManager.getConnection("jdbc:oracle:thin:@emielmuit.asuscomm.com:1521:XE", "System", "12345");  
     }
     
     public String Login(String gebruikersnaam) {
