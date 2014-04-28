@@ -58,6 +58,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     Button btJoin;
     @FXML PasswordField pfWachtwoord;
     @FXML Label lbOnjuist;
+    @FXML Label lbGebruikersnaam;
+    @FXML Label lbWachtwoord;
     // Set flag locateRegistry when binding using registry
     // Reset flag locateRegistry when binding using Naming
     private static boolean locateRegistry = true;
@@ -111,6 +113,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         t.schedule(new TimerTask() {
             @Override
             public void run() {
+                Platform.runLater(this);
                 try {
                     if (lobby.getAantalSpelers() > aantalSpelers) {
                         aantalSpelers = lobby.getAantalSpelers();
@@ -301,7 +304,11 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                 btLogin.setVisible(false);
                 taChat.setVisible(true);
                 taChatMessage.setVisible(true);
+                pfWachtwoord.setVisible(false);
                 btHost.setDisable(false);
+                lbOnjuist.setVisible(false);
+                lbGebruikersnaam.setVisible(false);
+                lbWachtwoord.setVisible(false);
                 
                 taChatMessage.setOnKeyPressed(new EventHandler<KeyEvent>()
                 {

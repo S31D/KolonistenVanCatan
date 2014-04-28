@@ -16,8 +16,8 @@
             <TextField fx:id="tfSpelernaam" layoutX="143.0" layoutY="188.0" prefWidth="158.0" />
             <TextArea fx:id="taChat" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="337.0" prefWidth="374.0" visible="false" wrapText="true" />
             <TextField fx:id="taChatMessage" editable="true" layoutX="14.0" layoutY="362.0" prefWidth="374.0" visible="false" />
-            <Label layoutX="56.0" layoutY="191.0" text="Gebruikersnaam" />
-            <Label layoutX="73.0" layoutY="215.0" text="Wachtwoord" />
+            <Label fx:id="lbGebruikersnaam" layoutX="56.0" layoutY="191.0" text="Gebruikersnaam" />
+            <Label fx:id="lbWachtwoord" layoutX="73.0" layoutY="215.0" text="Wachtwoord" />
             <PasswordField fx:id="pfWachtwoord" layoutX="143.0" layoutY="215.0" prefWidth="158.0" />
             <Label fx:id="lbOnjuist" layoutX="143.0" layoutY="236.0" text="Onjuiste gegevens, probeer nogmaals" textFill="RED" visible="true" />
           </children>

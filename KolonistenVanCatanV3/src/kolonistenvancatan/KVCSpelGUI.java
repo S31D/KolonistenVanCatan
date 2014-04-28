@@ -318,7 +318,7 @@ public class KVCSpelGUI extends Application {
     
     
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {   
         BorderPane borderPane = new BorderPane();
         GridPane gridPane = new GridPane();
         catan = new Canvas(650,650);

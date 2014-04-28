@@ -61,5 +61,10 @@
     <Button id="btnHandelenBank" fx:id="btnHandelenbank" layoutX="13.0" layoutY="312.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" text="Handelen met bank" />
     <Button fx:id="btnBeurt" layoutX="13.0" layoutY="373.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="136.0" text="Eindig beurt" />
     <Button layoutX="14.0" layoutY="429.0" mnemonicParsing="false" onAction="#testConnectie" text="Button" />
+    <Label fx:id="lbGraan" layoutX="28.0" layoutY="836.0" text="Label" />
+    <Label fx:id="lbHout" layoutX="89.0" layoutY="836.0" text="Label" />
+    <Label fx:id="lbErts" layoutX="159.0" layoutY="836.0" text="Label" />
+    <Label fx:id="lbWol" layoutX="229.0" layoutY="836.0" text="Label" />
+    <Label fx:id="lbSteen" layoutX="299.0" layoutY="836.0" text="Label" />
   </children>
 </AnchorPane>
