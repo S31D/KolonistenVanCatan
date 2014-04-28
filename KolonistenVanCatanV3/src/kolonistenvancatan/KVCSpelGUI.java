@@ -100,13 +100,13 @@ public class KVCSpelGUI extends Application {
          imageTegel = new Image("file:src/Images/Tegels/Bos.png");
          break;
          case BAKSTEEN:
-         imageTegel = new Image("file:src/Images/Tegels/Weide.png");
+         imageTegel = new Image("file:src/Images/Tegels/Heuvel.png");
          break;
          case GRAAN:
          imageTegel = new Image("file:src/Images/Tegels/Akker.png");
          break;
          case WOL:
-         imageTegel = new Image("file:src/Images/Tegels/Heuvel.png");
+         imageTegel = new Image("file:src/Images/Tegels/Weide.png");
          break;
          case ERTS:
          imageTegel = new Image("file:src/Images/Tegels/Berg.png");
@@ -147,7 +147,7 @@ public class KVCSpelGUI extends Application {
 
          } else if (spel.getBord().isOptieRand()) {
          imageTegel = new Image("file:src/Images/Tegels/Rand.png");
-         gc.drawImage(imageTegel, 297, 98);
+         gc.drawImage(imageTegel, 295, 97);
          }
          }
     }

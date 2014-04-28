@@ -6,23 +6,18 @@
 package kolonistenvancatan;
 
 import domein.*;
-import java.net.URL;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
-import javax.swing.text.html.ListView;
 
 /**
  *
  * @author Miquel
  */
-public class SpelController extends UnicastRemoteObject implements Initializable {
+public class SpelController {
 
     @FXML
     ImageView imgGraan;
@@ -53,12 +48,7 @@ public class SpelController extends UnicastRemoteObject implements Initializable
     /**
      *
      */
-    public SpelController() throws RemoteException {
-        String ipAddress = "localhost";
-        int portNumber = 1099;
-        // Print IP address and port number for registry
-        System.out.println("Client: IP Address: " + ipAddress);
-        System.out.println("Client: Port number " + portNumber);
+    public SpelController() {
 
         Platform.runLater(new Runnable() {
 
@@ -68,10 +58,6 @@ public class SpelController extends UnicastRemoteObject implements Initializable
             }
 
         });
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 
     public void testConnectie() {
